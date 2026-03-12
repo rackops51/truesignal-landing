@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TrueSignal — Your bars lie. This doesn't.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0d0d1a;
+      --bg2: #111122;
+      --navy: #1a1a2e;
+      --green: #2ecc71;
+      --green-glow: rgba(46, 204, 113, 0.35);
+      --yellow: #f1c40f;
+      --red: #e74c3c;
+      --gray: #95a5a6;
+      --white: #ffffff;
+      --muted: #aaaacc;
+      --text: #ebebf8;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'DM Mono', monospace;
+      overflow-x: hidden;
+    }
+
+    /* Noise overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* Grid lines background */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(46,204,113,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(46,204,113,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 48px;
+      background: rgba(13,13,26,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(46,204,113,0.08);
+    }
+
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 20px;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green-glow);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { box-shadow: 0 0 6px var(--green-glow); }
+      50% { box-shadow: 0 0 16px var(--green), 0 0 32px var(--green-glow); }
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 12px;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--green); }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 120px 24px 80px;
+      text-align: center;
+    }
+
+    .hero-eyebrow {
+      font-size: 14px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fade-up 0.6s ease forwards 0.2s;
+    }
+
+    .hero-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(48px, 8vw, 96px);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      margin-bottom: 12px;
+      opacity: 0;
+      animation: fade-up 0.6s ease forwards 0.4s;
+    }
+
+    .hero-title .highlight {
+      color: var(--green);
+      position: relative;
+    }
+
+    .hero-tagline {
+      font-size: clamp(15px, 2vw, 19px);
+      color: var(--muted);
+      margin-bottom: 6px;
+      letter-spacing: 0.02em;
+      opacity: 0;
+      animation: fade-up 0.6s ease forwards 0.6s;
+      white-space: nowrap;
+    }
+
+    .hero-tagline span {
+      color: var(--text);
+      border-bottom: 1px solid var(--muted);
+    }
+
+    .hero-tagline-emphasis {
+      font-size: clamp(16px, 2.2vw, 21px);
+      color: var(--white);
+      font-weight: 500;
+      margin-bottom: 48px !important;
+      animation-delay: 0.7s !important;
+      white-space: nowrap;
+    }
+
+    /* BIG DOT */
+    .hero-dot-wrap {
+      position: relative;
+      margin-bottom: 64px;
+      opacity: 0;
+      animation: fade-up 0.8s ease forwards 0.5s;
+    }
+
+    .hero-dot {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: var(--green);
+      opacity: 0.82;
+      position: relative;
+      overflow: hidden;
+      box-shadow:
+        0 0 60px rgba(46,204,113,0.4),
+        0 0 120px rgba(46,204,113,0.15),
+        inset 0 0 40px rgba(0,0,0,0.2);
+      animation: breathe 3s ease-in-out infinite;
+    }
+
+    @keyframes breathe {
+      0%, 100% { box-shadow: 0 0 60px rgba(46,204,113,0.4), 0 0 120px rgba(46,204,113,0.15); }
+      50% { box-shadow: 0 0 80px rgba(46,204,113,0.6), 0 0 160px rgba(46,204,113,0.25); }
+    }
+
+    .hero-dot::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 55%;
+      background: rgba(255,255,255,0.18);
+      border-bottom-left-radius: 90px;
+      border-bottom-right-radius: 90px;
+    }
+
+    .hero-dot::after {
+      content: '';
+      position: absolute;
+      top: 18px; left: 26px;
+      width: 60px; height: 34px;
+      background: rgba(255,255,255,0.28);
+      border-radius: 24px;
+      transform: rotate(-20deg);
+    }
+
+    .dot-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(46,204,113,0.2);
+      animation: ring-expand 3s ease-out infinite;
+    }
+
+    .dot-ring:nth-child(1) { width: 220px; height: 220px; top: -20px; left: -20px; animation-delay: 0s; }
+    .dot-ring:nth-child(2) { width: 280px; height: 280px; top: -50px; left: -50px; animation-delay: 1s; }
+    .dot-ring:nth-child(3) { width: 340px; height: 340px; top: -80px; left: -80px; animation-delay: 2s; }
+
+    @keyframes ring-expand {
+      0% { opacity: 0.6; transform: scale(0.95); }
+      100% { opacity: 0; transform: scale(1.05); }
+    }
+
+    /* STATUS BADGE */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(46,204,113,0.1);
+      border: 1px solid rgba(46,204,113,0.25);
+      border-radius: 100px;
+      padding: 8px 20px;
+      font-size: 13px;
+      color: var(--green);
+      margin-bottom: 16px;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse-dot 1.5s ease-in-out infinite;
+    }
+
+    /* DOWNLOAD BUTTONS */
+    .download-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fade-up 0.6s ease forwards 0.8s;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 24px;
+      border-radius: 10px;
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--green);
+      color: #0d1a0d;
+      font-weight: 500;
+    }
+
+    .btn-primary:hover {
+      background: #27ae60;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(46,204,113,0.3);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      border-color: rgba(255,255,255,0.1);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.2);
+      transform: translateY(-2px);
+    }
+
+    .btn-soon {
+      opacity: 0.4;
+      cursor: default;
+      background: rgba(255,255,255,0.03);
+      color: var(--muted);
+      border-color: rgba(255,255,255,0.06);
+    }
+
+    .btn-icon { font-size: 18px; }
+
+    .pricing-note {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      opacity: 0;
+      animation: fade-up 0.6s ease forwards 1s;
+    }
+
+    /* STATS STRIP */
+    .stats-strip {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      background: rgba(255,255,255,0.02);
+    }
+
+    .stat-item {
+      flex: 1;
+      max-width: 200px;
+      padding: 32px 24px;
+      text-align: center;
+      border-right: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .stat-item:last-child { border-right: none; }
+
+    .stat-value {
+      font-family: 'Syne', sans-serif;
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--green);
+      display: block;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .stat-label {
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    /* FEATURES */
+    .section {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 100px 24px;
+    }
+
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(32px, 5vw, 52px);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 60px;
+      max-width: 600px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.04);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .feature-card {
+      background: var(--bg);
+      padding: 36px 32px;
+      transition: background 0.2s;
+    }
+
+    .feature-card:hover { background: var(--bg2); }
+
+    .feature-icon {
+      font-size: 28px;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .feature-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--white);
+    }
+
+    .feature-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* DEMO SECTION */
+    .demo-section {
+      position: relative;
+      z-index: 1;
+      background: var(--bg2);
+      border-top: 1px solid rgba(255,255,255,0.04);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .demo-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 100px 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .demo-text .section-title { margin-bottom: 20px; }
+
+    .demo-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 32px;
+    }
+
+    /* MOCK APP WINDOW */
+    .mock-window {
+      background: var(--navy);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow:
+        0 40px 80px rgba(0,0,0,0.6),
+        0 0 0 1px rgba(255,255,255,0.06);
+      max-width: 320px;
+      margin: 0 auto;
+    }
+
+    .mock-titlebar {
+      background: rgba(255,255,255,0.03);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .mock-btn { width: 10px; height: 10px; border-radius: 50%; }
+    .mock-btn.close { background: #e74c3c; }
+    .mock-btn.min { background: #f1c40f; }
+    .mock-btn.max { background: #2ecc71; }
+
+    .mock-title {
+      font-size: 11px;
+      color: var(--muted);
+      margin-left: auto;
+      margin-right: auto;
+      letter-spacing: 0.05em;
+    }
+
+    .mock-body {
+      padding: 24px 20px 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .mock-dot {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: var(--green);
+      opacity: 0.85;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 14px;
+      box-shadow: 0 0 30px rgba(46,204,113,0.3);
+      animation: breathe 3s ease-in-out infinite;
+    }
+
+    .mock-dot::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 55%;
+      background: rgba(255,255,255,0.18);
+      border-bottom-left-radius: 45px;
+      border-bottom-right-radius: 45px;
+    }
+
+    .mock-dot::after {
+      content: '';
+      position: absolute;
+      top: 10px; left: 14px;
+      width: 30px; height: 18px;
+      background: rgba(255,255,255,0.28);
+      border-radius: 12px;
+      transform: rotate(-20deg);
+    }
+
+    .mock-status {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--green);
+      margin-bottom: 4px;
+    }
+
+    .mock-latency {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .mock-stats {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      width: 100%;
+    }
+
+    .mock-stat {
+      flex: 1;
+      background: rgba(255,255,255,0.04);
+      border-radius: 8px;
+      padding: 8px 6px;
+      text-align: center;
+    }
+
+    .mock-stat-val {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--white);
+      display: block;
+    }
+
+    .mock-stat-label {
+      font-size: 8px;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .mock-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 4px;
+      height: 50px;
+      width: 100%;
+      margin-bottom: 6px;
+    }
+
+    .mock-bar {
+      flex: 1;
+      border-radius: 3px;
+      background: var(--green);
+      opacity: 0.8;
+    }
+
+    /* PLATFORMS */
+    .platforms-section {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 100px 24px;
+    }
+
+    .platforms-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .platform-card {
+      background: var(--bg2);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 36px 28px;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .platform-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--green);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .platform-card:hover { border-color: rgba(46,204,113,0.2); transform: translateY(-4px); }
+    .platform-card:hover::before { opacity: 1; }
+
+    .platform-card.coming-soon { opacity: 0.5; }
+    .platform-card.coming-soon:hover { transform: none; }
+
+    .platform-icon { font-size: 36px; margin-bottom: 16px; display: block; }
+
+    .platform-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .platform-desc {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .platform-badge {
+      display: inline-block;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 100px;
+      background: rgba(46,204,113,0.12);
+      color: var(--green);
+      border: 1px solid rgba(46,204,113,0.2);
+    }
+
+    .platform-badge.soon {
+      background: rgba(255,255,255,0.04);
+      color: var(--muted);
+      border-color: rgba(255,255,255,0.08);
+    }
+
+    /* PRICING */
+    .pricing-section {
+      position: relative;
+      z-index: 1;
+      background: var(--bg2);
+      border-top: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .pricing-inner {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 100px 24px;
+      text-align: center;
+    }
+
+    .price-card {
+      background: var(--navy);
+      border: 1px solid rgba(46,204,113,0.2);
+      border-radius: 20px;
+      padding: 48px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .price-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--green), #27ae60);
+    }
+
+    .price-amount {
+      font-family: 'Syne', sans-serif;
+      font-size: 64px;
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .price-amount sup {
+      font-size: 24px;
+      vertical-align: super;
+      color: var(--muted);
+    }
+
+    .price-period {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 32px;
+    }
+
+    .price-features {
+      list-style: none;
+      margin-bottom: 36px;
+      text-align: left;
+    }
+
+    .price-features li {
+      font-size: 13px;
+      color: var(--text);
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .price-features li::before {
+      content: '✓';
+      color: var(--green);
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+
+    /* FOOTER */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding: 40px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-size: 11px;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--white); }
+
+    .footer-copy {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    /* SIGNAL BARS VISUAL */
+    .signal-bars-hero {
+      display: flex;
+      align-items: flex-end;
+      gap: 6px;
+      margin-bottom: 48px;
+      opacity: 0;
+      animation: fade-up 0.8s ease forwards 0.45s;
+    }
+
+    .signal-bar-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .signal-bar-label {
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .signal-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 4px;
+    }
+
+    .sbar {
+      width: 10px;
+      border-radius: 3px 3px 2px 2px;
+      transition: height 0.3s ease;
+    }
+
+    .sbar-1 { height: 10px; }
+    .sbar-2 { height: 18px; }
+    .sbar-3 { height: 28px; }
+    .sbar-4 { height: 38px; }
+
+    .bars-green .sbar { background: var(--green); box-shadow: 0 0 6px rgba(46,204,113,0.4); }
+    .bars-yellow .sbar-1,
+    .bars-yellow .sbar-2 { background: var(--yellow); box-shadow: 0 0 6px rgba(241,196,15,0.4); }
+    .bars-yellow .sbar-3,
+    .bars-yellow .sbar-4 { background: rgba(241,196,15,0.2); }
+    .bars-red .sbar-1 { background: var(--red); box-shadow: 0 0 6px rgba(231,76,60,0.4); }
+    .bars-red .sbar-2,
+    .bars-red .sbar-3,
+    .bars-red .sbar-4 { background: rgba(231,76,60,0.2); }
+
+    .bars-divider {
+      width: 1px;
+      height: 40px;
+      background: rgba(255,255,255,0.08);
+      margin: 0 12px 0 12px;
+      align-self: center;
+    }
+
+    .bars-vs {
+      font-size: 9px;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      align-self: center;
+      margin: 0 4px;
+    }
+
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .demo-inner { grid-template-columns: 1fr; gap: 48px; }
+      .platforms-grid { grid-template-columns: 1fr; }
+      .stats-strip { flex-wrap: wrap; }
+      .stat-item { min-width: 50%; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); }
+      footer { flex-direction: column; gap: 20px; text-align: center; }
+      .footer-links { flex-wrap: wrap; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">
+      <span class="nav-dot"></span>
+      TrueSignal
+    </a>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#platforms">Platforms</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="https://gist.github.com/rackops51/privacy-policy.md" target="_blank">Privacy</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <p class="hero-eyebrow">Real-time connectivity monitoring</p>
+    <h1 class="hero-title">Your bars lie.<br><span class="highlight">This doesn't.</span></h1>
+    <p class="hero-tagline">TrueSignal measures your <span>actual connection.</span></p>
+    <p class="hero-tagline hero-tagline-emphasis">Not what your device thinks it is.</p>
+
+    <div class="hero-dot-wrap">
+      <div class="dot-ring"></div>
+      <div class="dot-ring"></div>
+      <div class="dot-ring"></div>
+      <div class="hero-dot"></div>
+    </div>
+
+    <!-- Signal bars comparison -->
+    <div class="signal-bars-hero">
+      <div class="signal-bar-group">
+        <div class="signal-bars bars-green">
+          <div class="sbar sbar-1"></div>
+          <div class="sbar sbar-2"></div>
+          <div class="sbar sbar-3"></div>
+          <div class="sbar sbar-4"></div>
+        </div>
+        <span class="signal-bar-label" style="color:var(--green)">Connected · 24ms</span>
+      </div>
+      <div class="bars-divider"></div>
+      <div class="signal-bar-group">
+        <div class="signal-bars bars-yellow">
+          <div class="sbar sbar-1"></div>
+          <div class="sbar sbar-2"></div>
+          <div class="sbar sbar-3"></div>
+          <div class="sbar sbar-4"></div>
+        </div>
+        <span class="signal-bar-label" style="color:var(--yellow)">Slow · 380ms</span>
+      </div>
+      <div class="bars-divider"></div>
+      <div class="signal-bar-group">
+        <div class="signal-bars bars-red">
+          <div class="sbar sbar-1"></div>
+          <div class="sbar sbar-2"></div>
+          <div class="sbar sbar-3"></div>
+          <div class="sbar sbar-4"></div>
+        </div>
+        <span class="signal-bar-label" style="color:var(--red)">No Connection</span>
+      </div>
+    </div>
+
+    <div class="status-badge">
+      <span class="status-dot"></span>
+      Connected · 24ms · via WiFi
+    </div>
+
+    <div class="download-group">
+      <a href="#" class="btn btn-primary">
+        <span class="btn-icon">🪟</span> Download for Windows
+      </a>
+      <a href="#" class="btn btn-secondary btn-soon">
+        <span class="btn-icon">📱</span> App Store — Coming Soon
+      </a>
+      <a href="#" class="btn btn-secondary btn-soon">
+        <span class="btn-icon">🤖</span> Google Play — Coming Soon
+      </a>
+    </div>
+
+    <p class="pricing-note">$0.99 / month · Free to try · Cancel anytime</p>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-strip">
+    <div class="stat-item">
+      <span class="stat-value">&lt;1s</span>
+      <span class="stat-label">Update speed</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-value">24hr</span>
+      <span class="stat-label">History tracked</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-value">3</span>
+      <span class="stat-label">Platforms</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-value">0</span>
+      <span class="stat-label">False signals</span>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <section class="section" id="features">
+    <p class="section-label">Why TrueSignal</p>
+    <h2 class="section-title">Built for people who need to know.</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <span class="feature-icon">🎯</span>
+        <h3 class="feature-title">Ping-based accuracy</h3>
+        <p class="feature-desc">Uses live pings to measure real-world latency — not signal strength bars which can be completely misleading.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🟢</span>
+        <h3 class="feature-title">Instant visual status</h3>
+        <p class="feature-desc">Green, yellow, or red. Know your connection state at a glance without reading numbers or decoding icons.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">📊</span>
+        <h3 class="feature-title">24-hour history</h3>
+        <p class="feature-desc">See min, max, average latency and uptime percentage over the last 24 hours. Spot patterns in your connection.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🔔</span>
+        <h3 class="feature-title">Smart alerts</h3>
+        <p class="feature-desc">Get notified the moment your connection drops or slows down — and when it recovers. Stay informed without watching.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🗂️</span>
+        <h3 class="feature-title">System tray & widgets</h3>
+        <p class="feature-desc">Lives quietly in your system tray or home screen widget. Always visible, never in the way.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">⚡</span>
+        <h3 class="feature-title">Adjustable check rate</h3>
+        <p class="feature-desc">Check every 2, 4, 10, or 30 seconds. Balance battery life against how quickly you need to know.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEMO -->
+  <div class="demo-section">
+    <div class="demo-inner">
+      <div class="demo-text">
+        <p class="section-label">How it works</p>
+        <h2 class="section-title">Simple. Honest. Instant.</h2>
+        <p class="demo-desc">TrueSignal pings a reliable server every few seconds and measures the round-trip time. Under 150ms is green. Under 500ms is yellow. Anything else is red. No algorithms, no guessing — just the truth.</p>
+        <p class="demo-desc">The 24-hour range graph shows you the shape of your connection over time — so you can tell your ISP exactly when and how bad it gets.</p>
+        <a href="#" class="btn btn-primary" style="display:inline-flex;">
+          <span class="btn-icon">🪟</span> Download for Windows
+        </a>
+      </div>
+      <div>
+        <div class="mock-window">
+          <div class="mock-titlebar">
+            <span class="mock-btn close"></span>
+            <span class="mock-btn min"></span>
+            <span class="mock-btn max"></span>
+            <span class="mock-title">TrueSignal</span>
+          </div>
+          <div class="mock-body">
+            <div class="mock-dot"></div>
+            <div class="mock-status">Connected</div>
+            <div class="mock-latency">28ms · Just checked</div>
+            <div class="mock-stats">
+              <div class="mock-stat">
+                <span class="mock-stat-val">12ms</span>
+                <span class="mock-stat-label">Min</span>
+              </div>
+              <div class="mock-stat">
+                <span class="mock-stat-val">31ms</span>
+                <span class="mock-stat-label">Avg</span>
+              </div>
+              <div class="mock-stat">
+                <span class="mock-stat-val">447ms</span>
+                <span class="mock-stat-label">Max</span>
+              </div>
+              <div class="mock-stat">
+                <span class="mock-stat-val" style="color:#2ecc71">100%</span>
+                <span class="mock-stat-label">Up</span>
+              </div>
+            </div>
+            <div class="mock-bars">
+              <div class="mock-bar" style="height:60%;background:#f1c40f"></div>
+              <div class="mock-bar" style="height:45%"></div>
+              <div class="mock-bar" style="height:30%"></div>
+              <div class="mock-bar" style="height:35%"></div>
+              <div class="mock-bar" style="height:28%"></div>
+              <div class="mock-bar" style="height:32%"></div>
+              <div class="mock-bar" style="height:25%"></div>
+              <div class="mock-bar" style="height:30%"></div>
+              <div class="mock-bar" style="height:28%"></div>
+              <div class="mock-bar" style="height:32%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PLATFORMS -->
+  <section class="platforms-section" id="platforms">
+    <p class="section-label">Platforms</p>
+    <h2 class="section-title" style="margin-bottom:40px">Everywhere you need it.</h2>
+    <div class="platforms-grid">
+      <div class="platform-card">
+        <span class="platform-icon">🪟</span>
+        <div class="platform-name">Windows</div>
+        <p class="platform-desc">Full desktop app with system tray icon, 24-hour history, desktop notifications, and launch on startup.</p>
+        <span class="platform-badge">Available Now</span>
+      </div>
+      <div class="platform-card coming-soon">
+        <span class="platform-icon">📱</span>
+        <div class="platform-name">iOS</div>
+        <p class="platform-desc">Native iPhone and iPad app with home screen widget showing live connection status at a glance.</p>
+        <span class="platform-badge soon">Coming Soon</span>
+      </div>
+      <div class="platform-card coming-soon">
+        <span class="platform-icon">🤖</span>
+        <div class="platform-name">Android</div>
+        <p class="platform-desc">Android app with home screen widget, WiFi and cellular detection, and connection type display.</p>
+        <span class="platform-badge soon">Coming Soon</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <div class="pricing-section" id="pricing">
+    <div class="pricing-inner">
+      <p class="section-label" style="text-align:center">Pricing</p>
+      <h2 class="section-title" style="text-align:center;margin:0 auto 40px">One price.<br>All platforms.</h2>
+      <div class="price-card">
+        <div class="price-amount"><sup>$</sup>0.99</div>
+        <p class="price-period">per month · cancel anytime</p>
+        <ul class="price-features">
+          <li>Real-time ping monitoring</li>
+          <li>Green / yellow / red status indicator</li>
+          <li>24-hour history with min/max/avg stats</li>
+          <li>Desktop notifications & tray icon</li>
+          <li>Home screen widget (mobile)</li>
+          <li>Windows, iOS & Android included</li>
+          <li>Launch on startup</li>
+        </ul>
+        <a href="#" class="btn btn-primary" style="width:100%;justify-content:center;font-size:14px;">
+          Get TrueSignal
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">
+      <span class="nav-dot"></span>
+      TrueSignal
+    </div>
+    <ul class="footer-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#platforms">Platforms</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="https://gist.github.com/rackops51/privacy-policy.md" target="_blank">Privacy Policy</a></li>
+    </ul>
+    <p class="footer-copy">© 2026 TrueSignal. Your bars lie.</p>
+  </footer>
+
+</body>
+</html>
