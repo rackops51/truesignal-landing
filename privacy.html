@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TrueSignal — Privacy Policy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0d0d1a;
+      --bg2: #111122;
+      --navy: #1a1a2e;
+      --green: #2ecc71;
+      --green-glow: rgba(46, 204, 113, 0.35);
+      --white: #ffffff;
+      --muted: #aaaacc;
+      --text: #ebebf8;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'DM Mono', monospace;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(46,204,113,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(46,204,113,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 48px;
+      background: rgba(13,13,26,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(46,204,113,0.08);
+    }
+
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 20px;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green-glow);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { box-shadow: 0 0 6px var(--green-glow); }
+      50% { box-shadow: 0 0 16px var(--green), 0 0 32px var(--green-glow); }
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 140px 24px 100px;
+    }
+
+    .page-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 16px;
+    }
+
+    .page-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(36px, 6vw, 56px);
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+
+    .page-date {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 60px;
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--green);
+      margin-top: 48px;
+      margin-bottom: 12px;
+    }
+
+    p {
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.9;
+      margin-bottom: 16px;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      margin: 48px 0;
+    }
+
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding: 40px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    .footer-copy {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .back-link {
+      font-size: 12px;
+      color: var(--green);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: opacity 0.2s;
+    }
+
+    .back-link:hover { opacity: 0.7; }
+
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      footer { flex-direction: column; gap: 16px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-logo">
+      <span class="nav-dot"></span>
+      TrueSignal
+    </a>
+    <a href="/" class="back-link">← Back to home</a>
+  </nav>
+
+  <div class="content">
+    <p class="page-eyebrow">Legal</p>
+    <h1 class="page-title">Privacy Policy</h1>
+    <p class="page-date">Last updated: March 2026</p>
+
+    <p>TrueSignal is designed with privacy as a core principle. This policy explains what information the app does and does not collect.</p>
+
+    <hr class="divider" />
+
+    <h2 class="section-title">No Personal Information Collected</h2>
+    <p>TrueSignal does not collect, store, transmit, or share any personal information. No account is required to use the app. We do not collect your name, email address, location, device identifiers, or any other personally identifiable information.</p>
+
+    <h2 class="section-title">How the App Works</h2>
+    <p>TrueSignal works by sending a small network ping to a configurable server (by default, a reliable public server) and measuring the round-trip response time. This is the same mechanism your device uses to test connectivity. No data from these pings is stored on our servers — the result is displayed only on your device.</p>
+
+    <h2 class="section-title">No Analytics or Tracking</h2>
+    <p>TrueSignal does not include any analytics SDKs, advertising frameworks, or third-party tracking tools. We do not track how you use the app, how long you use it, or what features you access.</p>
+
+    <h2 class="section-title">No Data Storage</h2>
+    <p>All data displayed in TrueSignal — including connection status, latency readings, and recent history — is stored locally on your device only. Nothing is transmitted to TrueSignal servers. When you delete the app, all locally stored data is removed.</p>
+
+    <h2 class="section-title">Configurable Ping Target</h2>
+    <p>You can change the server that TrueSignal pings in the app settings. You may choose to use a local, regional, or private server for complete control over where ping requests are sent. We recommend using a server you trust and that is geographically close to you for the most accurate results.</p>
+
+    <h2 class="section-title">Children's Privacy</h2>
+    <p>TrueSignal does not knowingly collect any information from children under the age of 13. The app contains no features designed to collect data from any user, regardless of age.</p>
+
+    <h2 class="section-title">Changes to This Policy</h2>
+    <p>If we ever change this privacy policy, we will update the date at the top of this page. We will not change this policy in a way that reduces your privacy without clearly communicating the change.</p>
+
+    <h2 class="section-title">Contact</h2>
+    <p>If you have any questions about this privacy policy, you can reach us at <a href="mailto:dave@developerd.com" style="color:var(--green);text-decoration:none;">dave@developerd.com</a>.</p>
+  </div>
+
+  <footer>
+    <a href="/" class="footer-logo">
+      <span class="nav-dot"></span>
+      TrueSignal
+    </a>
+    <p class="footer-copy">© 2026 TrueSignal. Your bars lie.</p>
+  </footer>
+
+</body>
+</html>
