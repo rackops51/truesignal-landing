@@ -4,25 +4,27 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TrueSignal — Your bars lie. This doesn't.</title>
+  <meta name="description" content="TrueSignal tells you the truth about your phone's connection. Real ping-based monitoring — green, yellow, or red. No guessing." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #0d0d1a;
-      --bg2: #111122;
-      --navy: #1a1a2e;
-      --green: #2ecc71;
-      --green-glow: rgba(46, 204, 113, 0.35);
-      --yellow: #f1c40f;
-      --red: #e74c3c;
-      --gray: #95a5a6;
-      --white: #ffffff;
-      --muted: #aaaacc;
-      --text: #ebebf8;
+      --bg:         #0d0d1a;
+      --bg2:        #111122;
+      --navy:       #1a1a2e;
+      --green:      #2ecc71;
+      --green-glow: rgba(46,204,113,0.35);
+      --yellow:     #f1c40f;
+      --red:        #e74c3c;
+      --gray:       #95a5a6;
+      --white:      #ffffff;
+      --muted:      #aaaacc;
+      --text:       #ebebf8;
+      --pro:        #a78bfa;
+      --pro-glow:   rgba(167,139,250,0.3);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     html { scroll-behavior: smooth; }
 
     body {
@@ -32,38 +34,27 @@
       overflow-x: hidden;
     }
 
-    /* Noise overlay */
     body::before {
       content: '';
-      position: fixed;
-      inset: 0;
+      position: fixed; inset: 0;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.4;
+      pointer-events: none; z-index: 0; opacity: 0.4;
     }
 
-    /* Grid lines background */
     body::after {
       content: '';
-      position: fixed;
-      inset: 0;
+      position: fixed; inset: 0;
       background-image:
         linear-gradient(rgba(46,204,113,0.03) 1px, transparent 1px),
         linear-gradient(90deg, rgba(46,204,113,0.03) 1px, transparent 1px);
       background-size: 40px 40px;
-      pointer-events: none;
-      z-index: 0;
+      pointer-events: none; z-index: 0;
     }
 
-    /* NAV */
+    /* ── NAV ──────────────────────────────────────────────────────────────── */
     nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
       padding: 20px 48px;
       background: rgba(13,13,26,0.85);
       backdrop-filter: blur(12px);
@@ -71,801 +62,447 @@
     }
 
     .nav-logo {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 20px;
-      color: var(--white);
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 20px;
+      color: var(--white); display: flex; align-items: center; gap: 10px;
       text-decoration: none;
     }
 
     .nav-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: var(--green);
-      box-shadow: 0 0 8px var(--green-glow);
+      width: 12px; height: 12px; border-radius: 50%;
+      background: var(--green); box-shadow: 0 0 8px var(--green-glow);
       animation: pulse-dot 2s ease-in-out infinite;
     }
 
     @keyframes pulse-dot {
-      0%, 100% { box-shadow: 0 0 6px var(--green-glow); }
+      0%,100% { box-shadow: 0 0 6px var(--green-glow); }
       50% { box-shadow: 0 0 16px var(--green), 0 0 32px var(--green-glow); }
     }
 
-    .nav-links {
-      display: flex;
-      gap: 32px;
-      list-style: none;
-    }
-
+    .nav-links { display: flex; gap: 32px; list-style: none; }
     .nav-links a {
-      font-size: 12px;
-      color: var(--muted);
-      text-decoration: none;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      transition: color 0.2s;
+      font-size: 12px; color: var(--muted); text-decoration: none;
+      letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s;
     }
-
     .nav-links a:hover { color: var(--green); }
 
-    /* HERO */
+    .nav-pro-badge {
+      font-size: 10px; background: rgba(167,139,250,0.15);
+      border: 1px solid rgba(167,139,250,0.3); border-radius: 100px;
+      padding: 2px 8px; color: var(--pro); letter-spacing: 0.1em;
+      margin-left: 4px; vertical-align: middle;
+    }
+
+    /* ── HERO ──────────────────────────────────────────────────────────────── */
     .hero {
-      position: relative;
-      z-index: 1;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 120px 24px 80px;
-      text-align: center;
+      position: relative; z-index: 1; min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; padding: 120px 24px 80px; text-align: center;
     }
 
     .hero-eyebrow {
-      font-size: 14px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--green);
-      margin-bottom: 24px;
-      opacity: 0;
-      animation: fade-up 0.6s ease forwards 0.2s;
+      font-size: 14px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--green); margin-bottom: 24px;
+      opacity: 0; animation: fade-up 0.6s ease forwards 0.2s;
     }
 
     .hero-title {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: clamp(48px, 8vw, 96px);
-      line-height: 0.95;
-      letter-spacing: -0.03em;
-      margin-bottom: 12px;
-      opacity: 0;
-      animation: fade-up 0.6s ease forwards 0.4s;
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: clamp(48px, 8vw, 96px); line-height: 0.95;
+      letter-spacing: -0.03em; margin-bottom: 12px;
+      opacity: 0; animation: fade-up 0.6s ease forwards 0.4s;
     }
 
-    .hero-title .highlight {
-      color: var(--green);
-      position: relative;
-    }
+    .hero-title .highlight { color: var(--green); }
 
     .hero-tagline {
-      font-size: clamp(15px, 2vw, 19px);
-      color: var(--muted);
-      margin-bottom: 6px;
-      letter-spacing: 0.02em;
-      opacity: 0;
-      animation: fade-up 0.6s ease forwards 0.6s;
-      white-space: nowrap;
+      font-size: clamp(15px, 2vw, 19px); color: var(--muted);
+      margin-bottom: 6px; letter-spacing: 0.02em;
+      opacity: 0; animation: fade-up 0.6s ease forwards 0.6s;
     }
 
-    .hero-tagline span {
-      color: var(--text);
-      border-bottom: 1px solid var(--muted);
-    }
+    .hero-tagline span { color: var(--text); border-bottom: 1px solid var(--muted); }
 
     .hero-tagline-emphasis {
-      font-size: clamp(16px, 2.2vw, 21px);
-      color: var(--white);
-      font-weight: 500;
-      margin-bottom: 48px !important;
-      animation-delay: 0.7s !important;
-      white-space: nowrap;
+      font-size: clamp(16px, 2.2vw, 21px); color: var(--white); font-weight: 500;
+      margin-bottom: 48px !important; animation-delay: 0.7s !important;
     }
 
-    /* BIG DOT */
     .hero-dot-wrap {
-      position: relative;
-      margin-bottom: 64px;
-      opacity: 0;
-      animation: fade-up 0.8s ease forwards 0.5s;
+      position: relative; margin-bottom: 48px;
+      opacity: 0; animation: fade-up 0.8s ease forwards 0.5s;
     }
 
     .hero-dot {
-      width: 180px;
-      height: 180px;
-      border-radius: 50%;
-      background: var(--green);
-      opacity: 0.82;
-      position: relative;
-      overflow: hidden;
-      box-shadow:
-        0 0 60px rgba(46,204,113,0.4),
-        0 0 120px rgba(46,204,113,0.15),
-        inset 0 0 40px rgba(0,0,0,0.2);
+      width: 180px; height: 180px; border-radius: 50%; background: var(--green);
+      opacity: 0.82; position: relative; overflow: hidden;
+      box-shadow: 0 0 60px rgba(46,204,113,0.4), 0 0 120px rgba(46,204,113,0.15),
+                  inset 0 0 40px rgba(0,0,0,0.2);
       animation: breathe 3s ease-in-out infinite;
     }
 
     @keyframes breathe {
-      0%, 100% { box-shadow: 0 0 60px rgba(46,204,113,0.4), 0 0 120px rgba(46,204,113,0.15); }
+      0%,100% { box-shadow: 0 0 60px rgba(46,204,113,0.4), 0 0 120px rgba(46,204,113,0.15); }
       50% { box-shadow: 0 0 80px rgba(46,204,113,0.6), 0 0 160px rgba(46,204,113,0.25); }
     }
 
     .hero-dot::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 55%;
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 55%;
       background: rgba(255,255,255,0.18);
-      border-bottom-left-radius: 90px;
-      border-bottom-right-radius: 90px;
+      border-bottom-left-radius: 90px; border-bottom-right-radius: 90px;
     }
 
     .hero-dot::after {
-      content: '';
-      position: absolute;
-      top: 18px; left: 26px;
-      width: 60px; height: 34px;
-      background: rgba(255,255,255,0.28);
-      border-radius: 24px;
-      transform: rotate(-20deg);
+      content: ''; position: absolute; top: 18px; left: 26px;
+      width: 60px; height: 34px; background: rgba(255,255,255,0.28);
+      border-radius: 24px; transform: rotate(-20deg);
     }
 
     .dot-ring {
-      position: absolute;
-      border-radius: 50%;
+      position: absolute; border-radius: 50%;
       border: 1px solid rgba(46,204,113,0.2);
       animation: ring-expand 3s ease-out infinite;
     }
-
-    .dot-ring:nth-child(1) { width: 220px; height: 220px; top: -20px; left: -20px; animation-delay: 0s; }
-    .dot-ring:nth-child(2) { width: 280px; height: 280px; top: -50px; left: -50px; animation-delay: 1s; }
-    .dot-ring:nth-child(3) { width: 340px; height: 340px; top: -80px; left: -80px; animation-delay: 2s; }
+    .dot-ring:nth-child(1) { width:220px;height:220px;top:-20px;left:-20px;animation-delay:0s; }
+    .dot-ring:nth-child(2) { width:280px;height:280px;top:-50px;left:-50px;animation-delay:1s; }
+    .dot-ring:nth-child(3) { width:340px;height:340px;top:-80px;left:-80px;animation-delay:2s; }
 
     @keyframes ring-expand {
-      0% { opacity: 0.6; transform: scale(0.95); }
-      100% { opacity: 0; transform: scale(1.05); }
+      0% { opacity:0.6; transform:scale(0.95); }
+      100% { opacity:0; transform:scale(1.05); }
     }
 
-    /* STATUS BADGE */
+    .signal-bars-hero {
+      display: flex; align-items: flex-end; gap: 6px; margin-bottom: 40px;
+      opacity: 0; animation: fade-up 0.8s ease forwards 0.45s;
+    }
+
+    .signal-bar-group { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    .signal-bar-label { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; }
+    .signal-bars { display: flex; align-items: flex-end; gap: 4px; }
+    .sbar { width: 10px; border-radius: 3px 3px 2px 2px; }
+    .sbar-1{height:10px;} .sbar-2{height:18px;} .sbar-3{height:28px;} .sbar-4{height:38px;}
+    .bars-green .sbar { background:var(--green); box-shadow:0 0 6px rgba(46,204,113,0.4); }
+    .bars-yellow .sbar-1,.bars-yellow .sbar-2 { background:var(--yellow); }
+    .bars-yellow .sbar-3,.bars-yellow .sbar-4 { background:rgba(241,196,15,0.2); }
+    .bars-red .sbar-1 { background:var(--red); }
+    .bars-red .sbar-2,.bars-red .sbar-3,.bars-red .sbar-4 { background:rgba(231,76,60,0.2); }
+    .bars-divider { width:1px;height:40px;background:rgba(255,255,255,0.08);margin:0 12px;align-self:center; }
+
     .status-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(46,204,113,0.1);
-      border: 1px solid rgba(46,204,113,0.25);
-      border-radius: 100px;
-      padding: 8px 20px;
-      font-size: 13px;
-      color: var(--green);
-      margin-bottom: 16px;
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(46,204,113,0.1); border: 1px solid rgba(46,204,113,0.25);
+      border-radius: 100px; padding: 8px 20px; font-size: 13px;
+      color: var(--green); margin-bottom: 16px;
     }
 
     .status-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--green);
+      width: 7px; height: 7px; border-radius: 50%; background: var(--green);
       animation: pulse-dot 1.5s ease-in-out infinite;
     }
 
-    /* DOWNLOAD BUTTONS */
     .download-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      justify-content: center;
-      margin-bottom: 20px;
-      opacity: 0;
-      animation: fade-up 0.6s ease forwards 0.8s;
+      display: flex; flex-wrap: wrap; gap: 12px;
+      justify-content: center; margin-bottom: 20px;
+      opacity: 0; animation: fade-up 0.6s ease forwards 0.8s;
     }
 
     .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 14px 24px;
-      border-radius: 10px;
-      font-family: 'DM Mono', monospace;
-      font-size: 13px;
-      text-decoration: none;
-      transition: all 0.2s;
-      border: 1px solid transparent;
-      cursor: pointer;
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 24px; border-radius: 10px;
+      font-family: 'DM Mono', monospace; font-size: 13px;
+      text-decoration: none; transition: all 0.2s;
+      border: 1px solid transparent; cursor: pointer;
     }
-
-    .btn-primary {
-      background: var(--green);
-      color: #0d1a0d;
-      font-weight: 500;
-    }
-
-    .btn-primary:hover {
-      background: #27ae60;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(46,204,113,0.3);
-    }
-
-    .btn-secondary {
-      background: rgba(255,255,255,0.05);
-      color: var(--text);
-      border-color: rgba(255,255,255,0.1);
-    }
-
-    .btn-secondary:hover {
-      background: rgba(255,255,255,0.08);
-      border-color: rgba(255,255,255,0.2);
-      transform: translateY(-2px);
-    }
-
-    .btn-soon {
-      opacity: 0.4;
-      cursor: default;
-      background: rgba(255,255,255,0.03);
-      color: var(--muted);
-      border-color: rgba(255,255,255,0.06);
-    }
-
+    .btn-primary { background:var(--green); color:#0d1a0d; font-weight:500; }
+    .btn-primary:hover { background:#27ae60; transform:translateY(-2px); box-shadow:0 8px 24px rgba(46,204,113,0.3); }
+    .btn-secondary { background:rgba(255,255,255,0.05); color:var(--text); border-color:rgba(255,255,255,0.1); }
+    .btn-secondary:hover { background:rgba(255,255,255,0.08); border-color:rgba(255,255,255,0.2); transform:translateY(-2px); }
+    .btn-soon { opacity:0.4; cursor:default; background:rgba(255,255,255,0.03); color:var(--muted); border-color:rgba(255,255,255,0.06); }
     .btn-icon { font-size: 18px; }
 
     .pricing-note {
-      font-size: 11px;
-      color: var(--muted);
-      letter-spacing: 0.05em;
-      opacity: 0;
-      animation: fade-up 0.6s ease forwards 1s;
+      font-size: 11px; color: var(--muted); letter-spacing: 0.05em;
+      opacity: 0; animation: fade-up 0.6s ease forwards 1s;
     }
 
-    /* STATS STRIP */
+    /* ── STATS ─────────────────────────────────────────────────────────────── */
     .stats-strip {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      justify-content: center;
-      gap: 0;
+      position: relative; z-index: 1; display: flex; justify-content: center;
       border-top: 1px solid rgba(255,255,255,0.05);
       border-bottom: 1px solid rgba(255,255,255,0.05);
       background: rgba(255,255,255,0.02);
     }
 
-    .stat-item {
-      flex: 1;
-      max-width: 200px;
-      padding: 32px 24px;
-      text-align: center;
-      border-right: 1px solid rgba(255,255,255,0.05);
-    }
+    .stat-item { flex:1; max-width:200px; padding:32px 24px; text-align:center; border-right:1px solid rgba(255,255,255,0.05); }
+    .stat-item:last-child { border-right:none; }
+    .stat-value { font-family:'Syne',sans-serif; font-size:36px; font-weight:800; color:var(--green); display:block; line-height:1; margin-bottom:6px; }
+    .stat-label { font-size:10px; color:var(--muted); letter-spacing:0.15em; text-transform:uppercase; }
 
-    .stat-item:last-child { border-right: none; }
-
-    .stat-value {
-      font-family: 'Syne', sans-serif;
-      font-size: 36px;
-      font-weight: 800;
-      color: var(--green);
-      display: block;
-      line-height: 1;
-      margin-bottom: 6px;
-    }
-
-    .stat-label {
-      font-size: 10px;
-      color: var(--muted);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-    }
-
-    /* FEATURES */
+    /* ── SECTIONS ──────────────────────────────────────────────────────────── */
     .section {
-      position: relative;
-      z-index: 1;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 100px 24px;
+      position: relative; z-index: 1; max-width: 1100px;
+      margin: 0 auto; padding: 100px 24px;
     }
 
-    .section-label {
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--green);
-      margin-bottom: 16px;
-    }
+    .section-label { font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:var(--green); margin-bottom:16px; }
+    .section-title { font-family:'Syne',sans-serif; font-weight:800; font-size:clamp(32px,5vw,52px); line-height:1.05; letter-spacing:-0.02em; margin-bottom:60px; max-width:600px; }
 
-    .section-title {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: clamp(32px, 5vw, 52px);
-      line-height: 1.05;
-      letter-spacing: -0.02em;
-      margin-bottom: 60px;
-      max-width: 600px;
-    }
-
+    /* ── FREE FEATURES GRID ────────────────────────────────────────────────── */
     .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2px;
-      background: rgba(255,255,255,0.04);
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2px; background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.04); border-radius: 16px; overflow: hidden;
+    }
+
+    .feature-card { background:var(--bg); padding:36px 32px; transition:background 0.2s; }
+    .feature-card:hover { background:var(--bg2); }
+    .feature-icon { font-size:28px; margin-bottom:16px; display:block; }
+    .feature-title { font-family:'Syne',sans-serif; font-size:18px; font-weight:700; margin-bottom:10px; color:var(--white); }
+    .feature-desc { font-size:13px; color:var(--muted); line-height:1.7; }
+
+    /* ── PRO SECTION ───────────────────────────────────────────────────────── */
+    .pro-section {
+      position: relative; z-index: 1;
+      background: linear-gradient(180deg, var(--bg2) 0%, #12102a 100%);
+      border-top: 1px solid rgba(167,139,250,0.1);
+      border-bottom: 1px solid rgba(167,139,250,0.1);
+    }
+
+    .pro-inner { max-width: 1100px; margin: 0 auto; padding: 100px 24px; }
+
+    .pro-label { font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:var(--pro); margin-bottom:16px; }
+
+    .pro-title {
+      font-family:'Syne',sans-serif; font-weight:800; font-size:clamp(32px,5vw,52px);
+      line-height:1.05; letter-spacing:-0.02em; margin-bottom:16px;
+    }
+
+    .pro-subtitle { font-size:15px; color:var(--muted); line-height:1.7; margin-bottom:60px; max-width:520px; }
+
+    .pro-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;
+    }
+
+    .pro-card {
+      background: rgba(167,139,250,0.04);
+      border: 1px solid rgba(167,139,250,0.12);
+      border-radius: 16px; padding: 32px 28px;
+      transition: all 0.2s; position: relative; overflow: hidden;
+    }
+
+    .pro-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--pro), transparent);
+      opacity: 0; transition: opacity 0.2s;
+    }
+
+    .pro-card:hover { border-color:rgba(167,139,250,0.25); transform:translateY(-3px); }
+    .pro-card:hover::before { opacity: 1; }
+
+    .pro-card-icon { font-size:28px; margin-bottom:16px; display:block; }
+
+    .pro-card-title { font-family:'Syne',sans-serif; font-size:18px; font-weight:700; color:var(--white); margin-bottom:10px; }
+
+    .pro-card-desc { font-size:13px; color:var(--muted); line-height:1.7; margin-bottom:20px; }
+
+    .how-to {
+      background: rgba(0,0,0,0.2); border-radius: 10px; padding: 14px 16px;
       border: 1px solid rgba(255,255,255,0.04);
-      border-radius: 16px;
-      overflow: hidden;
     }
 
-    .feature-card {
-      background: var(--bg);
-      padding: 36px 32px;
-      transition: background 0.2s;
+    .how-to-title { font-size:10px; letter-spacing:0.15em; text-transform:uppercase; color:var(--pro); margin-bottom:10px; }
+
+    .how-to-steps { list-style: none; }
+
+    .how-to-steps li {
+      font-size:12px; color:var(--text); padding:4px 0;
+      display: flex; gap: 8px; align-items: flex-start; line-height: 1.5;
     }
 
-    .feature-card:hover { background: var(--bg2); }
-
-    .feature-icon {
-      font-size: 28px;
-      margin-bottom: 16px;
-      display: block;
+    .how-to-steps li::before {
+      content: attr(data-step);
+      color: var(--pro); font-weight: 600; flex-shrink: 0;
+      min-width: 14px;
     }
 
-    .feature-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 10px;
-      color: var(--white);
-    }
-
-    .feature-desc {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
-    /* DEMO SECTION */
+    /* ── HOW IT WORKS ──────────────────────────────────────────────────────── */
     .demo-section {
-      position: relative;
-      z-index: 1;
-      background: var(--bg2);
+      position: relative; z-index: 1; background: var(--bg2);
       border-top: 1px solid rgba(255,255,255,0.04);
       border-bottom: 1px solid rgba(255,255,255,0.04);
     }
 
     .demo-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 100px 24px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
+      max-width: 1100px; margin: 0 auto; padding: 100px 24px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
     }
 
     .demo-text .section-title { margin-bottom: 20px; }
+    .demo-desc { font-size:14px; color:var(--muted); line-height:1.8; margin-bottom:24px; }
 
-    .demo-desc {
-      font-size: 14px;
-      color: var(--muted);
-      line-height: 1.8;
-      margin-bottom: 32px;
+    .thresholds {
+      display: flex; gap: 8px; margin-bottom: 32px; flex-wrap: wrap;
     }
 
-    /* MOCK APP WINDOW */
+    .threshold-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      border-radius: 100px; padding: 6px 14px; font-size: 12px; font-weight: 500;
+    }
+
+    .threshold-pill.green { background:rgba(46,204,113,0.1); color:var(--green); border:1px solid rgba(46,204,113,0.2); }
+    .threshold-pill.yellow { background:rgba(241,196,15,0.1); color:var(--yellow); border:1px solid rgba(241,196,15,0.2); }
+    .threshold-pill.red { background:rgba(231,76,60,0.1); color:var(--red); border:1px solid rgba(231,76,60,0.2); }
+
     .mock-window {
-      background: var(--navy);
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow:
-        0 40px 80px rgba(0,0,0,0.6),
-        0 0 0 1px rgba(255,255,255,0.06);
-      max-width: 320px;
-      margin: 0 auto;
+      background: var(--navy); border-radius: 20px; overflow: hidden;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.06);
+      max-width: 320px; margin: 0 auto;
     }
 
     .mock-titlebar {
-      background: rgba(255,255,255,0.03);
-      padding: 12px 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      background: rgba(255,255,255,0.03); padding: 12px 16px;
+      display: flex; align-items: center; gap: 8px;
       border-bottom: 1px solid rgba(255,255,255,0.04);
     }
 
-    .mock-btn { width: 10px; height: 10px; border-radius: 50%; }
-    .mock-btn.close { background: #e74c3c; }
-    .mock-btn.min { background: #f1c40f; }
-    .mock-btn.max { background: #2ecc71; }
+    .mock-btn { width:10px; height:10px; border-radius:50%; }
+    .mock-btn.close{background:#e74c3c;} .mock-btn.min{background:#f1c40f;} .mock-btn.max{background:#2ecc71;}
+    .mock-title { font-size:11px; color:var(--muted); margin:0 auto; letter-spacing:0.05em; }
 
-    .mock-title {
-      font-size: 11px;
-      color: var(--muted);
-      margin-left: auto;
-      margin-right: auto;
-      letter-spacing: 0.05em;
-    }
-
-    .mock-body {
-      padding: 24px 20px 28px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+    .mock-body { padding:24px 20px 28px; display:flex; flex-direction:column; align-items:center; }
 
     .mock-dot {
-      width: 90px;
-      height: 90px;
-      border-radius: 50%;
-      background: var(--green);
-      opacity: 0.85;
-      position: relative;
-      overflow: hidden;
-      margin-bottom: 14px;
-      box-shadow: 0 0 30px rgba(46,204,113,0.3);
-      animation: breathe 3s ease-in-out infinite;
+      width:90px; height:90px; border-radius:50%; background:var(--green); opacity:0.85;
+      position:relative; overflow:hidden; margin-bottom:14px;
+      box-shadow:0 0 30px rgba(46,204,113,0.3); animation:breathe 3s ease-in-out infinite;
     }
 
-    .mock-dot::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 55%;
-      background: rgba(255,255,255,0.18);
-      border-bottom-left-radius: 45px;
-      border-bottom-right-radius: 45px;
-    }
+    .mock-dot::before { content:''; position:absolute; top:0;left:0;right:0; height:55%; background:rgba(255,255,255,0.18); border-bottom-left-radius:45px; border-bottom-right-radius:45px; }
+    .mock-dot::after { content:''; position:absolute; top:10px;left:14px; width:30px;height:18px; background:rgba(255,255,255,0.28); border-radius:12px; transform:rotate(-20deg); }
 
-    .mock-dot::after {
-      content: '';
-      position: absolute;
-      top: 10px; left: 14px;
-      width: 30px; height: 18px;
-      background: rgba(255,255,255,0.28);
-      border-radius: 12px;
-      transform: rotate(-20deg);
-    }
+    .mock-status { font-family:'Syne',sans-serif; font-size:18px; font-weight:700; color:var(--green); margin-bottom:4px; }
+    .mock-latency { font-size:13px; color:var(--muted); margin-bottom:16px; }
 
-    .mock-status {
-      font-family: 'Syne', sans-serif;
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--green);
-      margin-bottom: 4px;
-    }
+    .mock-stats { display:flex; gap:8px; margin-bottom:16px; width:100%; }
+    .mock-stat { flex:1; background:rgba(255,255,255,0.04); border-radius:8px; padding:8px 6px; text-align:center; }
+    .mock-stat-val { font-size:12px; font-weight:600; color:var(--white); display:block; }
+    .mock-stat-label { font-size:8px; color:var(--muted); letter-spacing:0.1em; text-transform:uppercase; }
 
-    .mock-latency {
-      font-size: 13px;
-      color: var(--muted);
-      margin-bottom: 16px;
-    }
+    .mock-bars { display:flex; align-items:flex-end; gap:4px; height:50px; width:100%; margin-bottom:6px; }
+    .mock-bar { flex:1; border-radius:3px; background:var(--green); opacity:0.8; }
 
-    .mock-stats {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 16px;
-      width: 100%;
-    }
+    /* ── PLATFORMS ─────────────────────────────────────────────────────────── */
+    .platforms-section { position:relative; z-index:1; max-width:1100px; margin:0 auto; padding:100px 24px; }
 
-    .mock-stat {
-      flex: 1;
-      background: rgba(255,255,255,0.04);
-      border-radius: 8px;
-      padding: 8px 6px;
-      text-align: center;
-    }
-
-    .mock-stat-val {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--white);
-      display: block;
-    }
-
-    .mock-stat-label {
-      font-size: 8px;
-      color: var(--muted);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    .mock-bars {
-      display: flex;
-      align-items: flex-end;
-      gap: 4px;
-      height: 50px;
-      width: 100%;
-      margin-bottom: 6px;
-    }
-
-    .mock-bar {
-      flex: 1;
-      border-radius: 3px;
-      background: var(--green);
-      opacity: 0.8;
-    }
-
-    /* PLATFORMS */
-    .platforms-section {
-      position: relative;
-      z-index: 1;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 100px 24px;
-    }
-
-    .platforms-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
+    .platforms-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
 
     .platform-card {
-      background: var(--bg2);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 16px;
-      padding: 36px 28px;
-      transition: all 0.2s;
-      position: relative;
-      overflow: hidden;
+      background:var(--bg2); border:1px solid rgba(255,255,255,0.06);
+      border-radius:16px; padding:36px 28px; transition:all 0.2s;
+      position:relative; overflow:hidden;
     }
 
-    .platform-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: var(--green);
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
+    .platform-card::before { content:''; position:absolute; top:0;left:0;right:0; height:2px; background:var(--green); opacity:0; transition:opacity 0.2s; }
+    .platform-card:hover { border-color:rgba(46,204,113,0.2); transform:translateY(-4px); }
+    .platform-card:hover::before { opacity:1; }
 
-    .platform-card:hover { border-color: rgba(46,204,113,0.2); transform: translateY(-4px); }
-    .platform-card:hover::before { opacity: 1; }
+    .platform-icon { font-size:36px; margin-bottom:16px; display:block; }
+    .platform-name { font-family:'Syne',sans-serif; font-size:20px; font-weight:700; margin-bottom:8px; }
+    .platform-desc { font-size:12px; color:var(--muted); line-height:1.7; margin-bottom:20px; }
+    .platform-badge { display:inline-block; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; padding:4px 10px; border-radius:100px; background:rgba(46,204,113,0.12); color:var(--green); border:1px solid rgba(46,204,113,0.2); }
+    .platform-badge.soon { background:rgba(255,255,255,0.04); color:var(--muted); border-color:rgba(255,255,255,0.08); }
 
-    .platform-card.coming-soon { opacity: 0.5; }
-    .platform-card.coming-soon:hover { transform: none; }
+    /* ── PRICING ───────────────────────────────────────────────────────────── */
+    .pricing-section { position:relative; z-index:1; background:var(--bg2); border-top:1px solid rgba(255,255,255,0.04); }
 
-    .platform-icon { font-size: 36px; margin-bottom: 16px; display: block; }
+    .pricing-inner { max-width:900px; margin:0 auto; padding:100px 24px; text-align:center; }
 
-    .platform-name {
-      font-family: 'Syne', sans-serif;
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .platform-desc {
-      font-size: 12px;
-      color: var(--muted);
-      line-height: 1.7;
-      margin-bottom: 20px;
-    }
-
-    .platform-badge {
-      display: inline-block;
-      font-size: 10px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 4px 10px;
-      border-radius: 100px;
-      background: rgba(46,204,113,0.12);
-      color: var(--green);
-      border: 1px solid rgba(46,204,113,0.2);
-    }
-
-    .platform-badge.soon {
-      background: rgba(255,255,255,0.04);
-      color: var(--muted);
-      border-color: rgba(255,255,255,0.08);
-    }
-
-    /* PRICING */
-    .pricing-section {
-      position: relative;
-      z-index: 1;
-      background: var(--bg2);
-      border-top: 1px solid rgba(255,255,255,0.04);
-    }
-
-    .pricing-inner {
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 100px 24px;
-      text-align: center;
-    }
+    .pricing-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:32px; }
 
     .price-card {
-      background: var(--navy);
-      border: 1px solid rgba(46,204,113,0.2);
-      border-radius: 20px;
-      padding: 48px 40px;
-      position: relative;
-      overflow: hidden;
+      background:var(--navy); border:1px solid rgba(255,255,255,0.07);
+      border-radius:20px; padding:36px 28px;
+      position:relative; overflow:hidden; transition:all 0.2s;
+      display:flex; flex-direction:column;
     }
 
-    .price-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--green), #27ae60);
+    .price-card:hover { transform:translateY(-4px); border-color:rgba(46,204,113,0.2); }
+
+    .price-card.featured {
+      border-color: rgba(46,204,113,0.4);
+      background: linear-gradient(180deg, rgba(46,204,113,0.06) 0%, var(--navy) 100%);
     }
+
+    .price-card.featured::before {
+      content: ''; position:absolute; top:0;left:0;right:0; height:3px;
+      background:linear-gradient(90deg,var(--green),#27ae60);
+    }
+
+    .price-card-badge {
+      display:inline-block; font-size:10px; letter-spacing:0.12em; text-transform:uppercase;
+      padding:4px 12px; border-radius:100px; margin-bottom:20px; align-self:flex-start;
+    }
+
+    .price-card-badge.free-badge { background:rgba(255,255,255,0.06); color:var(--muted); border:1px solid rgba(255,255,255,0.08); }
+    .price-card-badge.pro-badge { background:rgba(46,204,113,0.12); color:var(--green); border:1px solid rgba(46,204,113,0.2); }
+
+    .price-name { font-family:'Syne',sans-serif; font-size:22px; font-weight:800; margin-bottom:8px; }
 
     .price-amount {
-      font-family: 'Syne', sans-serif;
-      font-size: 64px;
-      font-weight: 800;
-      color: var(--white);
-      line-height: 1;
-      margin-bottom: 4px;
+      font-family:'Syne',sans-serif; font-size:52px; font-weight:800;
+      color:var(--white); line-height:1; margin-bottom:4px;
     }
 
-    .price-amount sup {
-      font-size: 24px;
-      vertical-align: super;
-      color: var(--muted);
-    }
+    .price-amount sup { font-size:20px; vertical-align:super; color:var(--muted); }
+    .price-amount .big { font-size:52px; }
 
-    .price-period {
-      font-size: 13px;
-      color: var(--muted);
-      margin-bottom: 32px;
-    }
+    .price-period { font-size:12px; color:var(--muted); margin-bottom:28px; min-height:18px; }
 
-    .price-features {
-      list-style: none;
-      margin-bottom: 36px;
-      text-align: left;
-    }
+    .price-divider { height:1px; background:rgba(255,255,255,0.05); margin-bottom:20px; }
+
+    .price-features { list-style:none; margin-bottom:28px; text-align:left; flex:1; }
 
     .price-features li {
-      font-size: 13px;
-      color: var(--text);
-      padding: 10px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      font-size:12px; color:var(--text); padding:8px 0;
+      border-bottom:1px solid rgba(255,255,255,0.04);
+      display:flex; align-items:center; gap:8px;
     }
 
-    .price-features li::before {
-      content: '✓';
-      color: var(--green);
-      font-weight: bold;
-      flex-shrink: 0;
-    }
+    .price-features li:last-child { border-bottom:none; }
 
-    /* FOOTER */
+    .price-features li .check { color:var(--green); flex-shrink:0; }
+    .price-features li .dim { color:var(--muted); }
+
+    .pricing-note-bottom { font-size:11px; color:var(--muted); line-height:1.8; }
+
+    /* ── FOOTER ────────────────────────────────────────────────────────────── */
     footer {
-      position: relative;
-      z-index: 1;
-      border-top: 1px solid rgba(255,255,255,0.05);
-      padding: 40px 48px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      position:relative; z-index:1; border-top:1px solid rgba(255,255,255,0.05);
+      padding:40px 48px; display:flex; align-items:center; justify-content:space-between;
     }
 
-    .footer-logo {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 24px;
-      list-style: none;
-    }
-
-    .footer-links a {
-      font-size: 11px;
-      color: var(--muted);
-      text-decoration: none;
-      letter-spacing: 0.05em;
-      transition: color 0.2s;
-    }
-
-    .footer-links a:hover { color: var(--white); }
-
-    .footer-copy {
-      font-size: 11px;
-      color: var(--muted);
-    }
-
-    /* SIGNAL BARS VISUAL */
-    .signal-bars-hero {
-      display: flex;
-      align-items: flex-end;
-      gap: 6px;
-      margin-bottom: 48px;
-      opacity: 0;
-      animation: fade-up 0.8s ease forwards 0.45s;
-    }
-
-    .signal-bar-group {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .signal-bar-label {
-      font-size: 9px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    .signal-bars {
-      display: flex;
-      align-items: flex-end;
-      gap: 4px;
-    }
-
-    .sbar {
-      width: 10px;
-      border-radius: 3px 3px 2px 2px;
-      transition: height 0.3s ease;
-    }
-
-    .sbar-1 { height: 10px; }
-    .sbar-2 { height: 18px; }
-    .sbar-3 { height: 28px; }
-    .sbar-4 { height: 38px; }
-
-    .bars-green .sbar { background: var(--green); box-shadow: 0 0 6px rgba(46,204,113,0.4); }
-    .bars-yellow .sbar-1,
-    .bars-yellow .sbar-2 { background: var(--yellow); box-shadow: 0 0 6px rgba(241,196,15,0.4); }
-    .bars-yellow .sbar-3,
-    .bars-yellow .sbar-4 { background: rgba(241,196,15,0.2); }
-    .bars-red .sbar-1 { background: var(--red); box-shadow: 0 0 6px rgba(231,76,60,0.4); }
-    .bars-red .sbar-2,
-    .bars-red .sbar-3,
-    .bars-red .sbar-4 { background: rgba(231,76,60,0.2); }
-
-    .bars-divider {
-      width: 1px;
-      height: 40px;
-      background: rgba(255,255,255,0.08);
-      margin: 0 12px 0 12px;
-      align-self: center;
-    }
-
-    .bars-vs {
-      font-size: 9px;
-      color: var(--muted);
-      letter-spacing: 0.1em;
-      align-self: center;
-      margin: 0 4px;
-    }
+    .footer-logo { font-family:'Syne',sans-serif; font-weight:800; font-size:16px; display:flex; align-items:center; gap:8px; }
+    .footer-links { display:flex; gap:24px; list-style:none; }
+    .footer-links a { font-size:11px; color:var(--muted); text-decoration:none; letter-spacing:0.05em; transition:color 0.2s; }
+    .footer-links a:hover { color:var(--white); }
+    .footer-copy { font-size:11px; color:var(--muted); }
 
     @keyframes fade-up {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      from { opacity:0; transform:translateY(20px); }
+      to { opacity:1; transform:translateY(0); }
     }
 
-    /* RESPONSIVE */
+    /* ── RESPONSIVE ────────────────────────────────────────────────────────── */
     @media (max-width: 768px) {
-      nav { padding: 16px 20px; }
-      .nav-links { display: none; }
-      .demo-inner { grid-template-columns: 1fr; gap: 48px; }
-      .platforms-grid { grid-template-columns: 1fr; }
-      .stats-strip { flex-wrap: wrap; }
-      .stat-item { min-width: 50%; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); }
-      footer { flex-direction: column; gap: 20px; text-align: center; }
-      .footer-links { flex-wrap: wrap; justify-content: center; }
+      nav { padding:16px 20px; }
+      .nav-links { display:none; }
+      .demo-inner { grid-template-columns:1fr; gap:48px; }
+      .platforms-grid { grid-template-columns:1fr; }
+      .pricing-grid { grid-template-columns:1fr; }
+      .stats-strip { flex-wrap:wrap; }
+      .stat-item { min-width:50%; border-right:none; border-bottom:1px solid rgba(255,255,255,0.05); }
+      footer { flex-direction:column; gap:20px; text-align:center; }
+      .footer-links { flex-wrap:wrap; justify-content:center; }
     }
   </style>
 </head>
@@ -878,9 +515,10 @@
       TrueSignal
     </a>
     <ul class="nav-links">
-      <li><a href="#features">Features</a></li>
-      <li><a href="#platforms">Platforms</a></li>
+      <li><a href="#features">Free Features</a></li>
+      <li><a href="#pro">Pro <span class="nav-pro-badge">NEW</span></a></li>
       <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#platforms">Platforms</a></li>
       <li><a href="https://truesignal.live/privacy" target="_blank">Privacy</a></li>
     </ul>
   </nav>
@@ -899,34 +537,27 @@
       <div class="hero-dot"></div>
     </div>
 
-    <!-- Signal bars comparison -->
     <div class="signal-bars-hero">
       <div class="signal-bar-group">
         <div class="signal-bars bars-green">
-          <div class="sbar sbar-1"></div>
-          <div class="sbar sbar-2"></div>
-          <div class="sbar sbar-3"></div>
-          <div class="sbar sbar-4"></div>
+          <div class="sbar sbar-1"></div><div class="sbar sbar-2"></div>
+          <div class="sbar sbar-3"></div><div class="sbar sbar-4"></div>
         </div>
         <span class="signal-bar-label" style="color:var(--green)">Connected · 24ms</span>
       </div>
       <div class="bars-divider"></div>
       <div class="signal-bar-group">
         <div class="signal-bars bars-yellow">
-          <div class="sbar sbar-1"></div>
-          <div class="sbar sbar-2"></div>
-          <div class="sbar sbar-3"></div>
-          <div class="sbar sbar-4"></div>
+          <div class="sbar sbar-1"></div><div class="sbar sbar-2"></div>
+          <div class="sbar sbar-3"></div><div class="sbar sbar-4"></div>
         </div>
         <span class="signal-bar-label" style="color:var(--yellow)">Slow · 380ms</span>
       </div>
       <div class="bars-divider"></div>
       <div class="signal-bar-group">
         <div class="signal-bars bars-red">
-          <div class="sbar sbar-1"></div>
-          <div class="sbar sbar-2"></div>
-          <div class="sbar sbar-3"></div>
-          <div class="sbar sbar-4"></div>
+          <div class="sbar sbar-1"></div><div class="sbar sbar-2"></div>
+          <div class="sbar sbar-3"></div><div class="sbar sbar-4"></div>
         </div>
         <span class="signal-bar-label" style="color:var(--red)">No Connection</span>
       </div>
@@ -938,89 +569,98 @@
     </div>
 
     <div class="download-group">
-      <a href="#" class="btn btn-secondary btn-soon">
-        <span class="btn-icon">🪟</span> Windows — Coming Soon
-      </a>
-      <a href="https://apps.apple.com/app/truesignal/id6760624783" class="btn btn-secondary" target="_blank">
+      <a href="https://apps.apple.com/app/truesignal/id6760624783" class="btn btn-primary" target="_blank">
         <span class="btn-icon">📱</span> Download on App Store
       </a>
-      <a href="#" class="btn btn-secondary btn-soon">
+     <a class="btn btn-soon">
         <span class="btn-icon">🤖</span> Google Play — Coming Soon
       </a>
     </div>
 
-    <p class="pricing-note">$0.99 / month per platform · Cancel anytime</p>
+    <p class="pricing-note">Free to use · TrueSignal Pro from $0.99/mo · No account required</p>
   </section>
 
   <!-- STATS -->
   <div class="stats-strip">
     <div class="stat-item">
+      <span class="stat-value">1,300+</span>
+      <span class="stat-label">Downloads</span>
+    </div>
+    <div class="stat-item">
       <span class="stat-value">&lt;1s</span>
       <span class="stat-label">Update speed</span>
     </div>
     <div class="stat-item">
-      <span class="stat-value">24hr</span>
-      <span class="stat-label">History tracked</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-value">3</span>
-      <span class="stat-label">Platforms</span>
-    </div>
-    <div class="stat-item">
       <span class="stat-value">0</span>
-      <span class="stat-label">False signals</span>
+      <span class="stat-label">Ads or tracking</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-value">100%</span>
+      <span class="stat-label">On-device · private</span>
     </div>
   </div>
 
-  <!-- FEATURES -->
+  <!-- FREE FEATURES -->
   <section class="section" id="features">
-    <p class="section-label">Why TrueSignal</p>
-    <h2 class="section-title">Built for people who need to know.</h2>
+    <p class="section-label">Free features</p>
+    <h2 class="section-title">Everything you need to know the truth.</h2>
     <div class="features-grid">
       <div class="feature-card">
         <span class="feature-icon">🎯</span>
         <h3 class="feature-title">Ping-based accuracy</h3>
-        <p class="feature-desc">Uses live pings to measure real-world latency — not signal strength bars which can be completely misleading.</p>
+        <p class="feature-desc">Measures real-world round-trip latency to a reliable server — not signal strength bars, which can be completely misleading. Under 150ms is green. Under 500ms is yellow. Anything else is red.</p>
       </div>
       <div class="feature-card">
         <span class="feature-icon">🟢</span>
         <h3 class="feature-title">Instant visual status</h3>
-        <p class="feature-desc">Green, yellow, or red. Know your connection state at a glance without reading numbers or decoding icons.</p>
+        <p class="feature-desc">Green, yellow, or red — know your connection state at a glance. The pulsing dot and status text update every 2 seconds so you always have a fresh reading.</p>
       </div>
       <div class="feature-card">
         <span class="feature-icon">📊</span>
-        <h3 class="feature-title">24-hour history</h3>
-        <p class="feature-desc">See min, max, average latency and uptime percentage over the last 24 hours. Spot patterns in your connection.</p>
+        <h3 class="feature-title">Stability score</h3>
+        <p class="feature-desc">See whether your connection is Stable, Intermittent, or Poor based on jitter, packet loss, and uptime percentage. The stability card appears after your first few readings.</p>
       </div>
       <div class="feature-card">
-        <span class="feature-icon">🔔</span>
-        <h3 class="feature-title">Smart alerts</h3>
-        <p class="feature-desc">Get notified the moment your connection drops or slows down — and when it recovers. Stay informed without watching.</p>
+        <span class="feature-icon">📈</span>
+        <h3 class="feature-title">Recent history chart</h3>
+        <p class="feature-desc">A bar chart of your last 12 readings with color-coded latency values. Tall bars = slow, short bars = fast. Instantly shows you if your connection is getting better or worse.</p>
       </div>
       <div class="feature-card">
-        <span class="feature-icon">🗂️</span>
-        <h3 class="feature-title">System tray & widgets</h3>
-        <p class="feature-desc">Lives quietly in your system tray or home screen widget. Always visible, never in the way.</p>
+        <span class="feature-icon">🧭</span>
+        <h3 class="feature-title">SignalFinder</h3>
+        <p class="feature-desc">Rotate your phone 360° to find the direction of strongest signal. Uses your compass to map latency at each bearing. Coverage %, quality score, and confidence bar show how reliable the result is.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">📋</span>
+        <h3 class="feature-title">Event log</h3>
+        <p class="feature-desc">Automatically logs every outage, slowdown, and recovery with timestamps. The Events tab keeps a running tally of Outages, Slowdowns, and Recoveries so you can spot patterns.</p>
       </div>
       <div class="feature-card">
         <span class="feature-icon">⚡</span>
         <h3 class="feature-title">Adjustable check rate</h3>
-        <p class="feature-desc">Check every 2, 4, 10, or 30 seconds. Balance battery life against how quickly you need to know.</p>
+        <p class="feature-desc">Check every 2, 4, 10, or 30 seconds. Use 2s when you need to know right away. Use 30s for all-day passive monitoring with minimal battery impact.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🔒</span>
+        <h3 class="feature-title">Complete privacy</h3>
+        <p class="feature-desc">TrueSignal only contacts the server you configure — nothing else. No account, no data collection, no analytics. You can even use a private local server for completely offline LAN testing.</p>
       </div>
     </div>
   </section>
 
-  <!-- DEMO -->
+  <!-- HOW IT WORKS -->
   <div class="demo-section">
     <div class="demo-inner">
       <div class="demo-text">
         <p class="section-label">How it works</p>
         <h2 class="section-title">Simple. Honest. Instant.</h2>
-        <p class="demo-desc">TrueSignal pings a reliable server every few seconds and measures the round-trip time. Under 150ms is green. Under 500ms is yellow. Anything else is red. No algorithms, no guessing — just the truth.</p>
-        <p class="demo-desc">The 24-hour range graph shows you the shape of your connection over time — so you can tell your ISP exactly when and how bad it gets.</p>
-        <a href="#" class="btn btn-secondary btn-soon" style="display:inline-flex;">
-          <span class="btn-icon">🪟</span> Windows — Coming Soon
-        </a>
+        <p class="demo-desc">TrueSignal pings a reliable server every few seconds and measures the round-trip time. No algorithms, no guessing — just the truth about whether your connection can actually do anything useful right now.</p>
+        <div class="thresholds">
+          <span class="threshold-pill green">● Under 150ms — Connected</span>
+          <span class="threshold-pill yellow">● 150–500ms — Slow</span>
+          <span class="threshold-pill red">● Over 500ms — No Connection</span>
+        </div>
+        <p class="demo-desc">The history chart shows you the shape of your connection over time — so you can tell your ISP exactly when and how bad it gets. Tall bars mean high latency (slow). Short bars mean low latency (fast).</p>
       </div>
       <div>
         <div class="mock-window">
@@ -1033,39 +673,155 @@
           <div class="mock-body">
             <div class="mock-dot"></div>
             <div class="mock-status">Connected</div>
-            <div class="mock-latency">28ms · Just checked</div>
+            <div class="mock-latency">33ms · via WiFi · Just checked</div>
             <div class="mock-stats">
               <div class="mock-stat">
-                <span class="mock-stat-val">12ms</span>
-                <span class="mock-stat-label">Min</span>
+                <span class="mock-stat-val" style="color:#2ecc71">Stable</span>
+                <span class="mock-stat-label">Stability</span>
               </div>
               <div class="mock-stat">
-                <span class="mock-stat-val">31ms</span>
-                <span class="mock-stat-label">Avg</span>
+                <span class="mock-stat-val">0%</span>
+                <span class="mock-stat-label">Loss</span>
               </div>
               <div class="mock-stat">
-                <span class="mock-stat-val">447ms</span>
-                <span class="mock-stat-label">Max</span>
+                <span class="mock-stat-val">14ms</span>
+                <span class="mock-stat-label">Jitter</span>
               </div>
               <div class="mock-stat">
                 <span class="mock-stat-val" style="color:#2ecc71">100%</span>
-                <span class="mock-stat-label">Up</span>
+                <span class="mock-stat-label">Uptime</span>
               </div>
             </div>
             <div class="mock-bars">
-              <div class="mock-bar" style="height:60%;background:#f1c40f"></div>
               <div class="mock-bar" style="height:45%"></div>
-              <div class="mock-bar" style="height:30%"></div>
               <div class="mock-bar" style="height:35%"></div>
-              <div class="mock-bar" style="height:28%"></div>
-              <div class="mock-bar" style="height:32%"></div>
-              <div class="mock-bar" style="height:25%"></div>
               <div class="mock-bar" style="height:30%"></div>
+              <div class="mock-bar" style="height:40%"></div>
               <div class="mock-bar" style="height:28%"></div>
+              <div class="mock-bar" style="height:35%;background:#f1c40f"></div>
+              <div class="mock-bar" style="height:30%"></div>
               <div class="mock-bar" style="height:32%"></div>
+              <div class="mock-bar" style="height:28%"></div>
+              <div class="mock-bar" style="height:35%"></div>
             </div>
+            <div style="font-size:9px;color:#444460;letter-spacing:0.05em;align-self:flex-end;margin-right:4px;">Tall = slow · Short = fast · ms</div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRO FEATURES -->
+  <div class="pro-section" id="pro">
+    <div class="pro-inner">
+      <p class="pro-label">✦ TrueSignal Pro</p>
+      <h2 class="pro-title">Advanced tools for serious<br>connection diagnostics.</h2>
+      <p class="pro-subtitle">TrueSignal Pro unlocks a suite of powerful tools for users who need to go deeper. From $0.99/month — or $19.99 for lifetime access.</p>
+
+      <div class="pro-grid">
+
+        <!-- Compare -->
+        <div class="pro-card">
+          <span class="pro-card-icon">⚡</span>
+          <h3 class="pro-card-title">Compare Mode</h3>
+          <p class="pro-card-desc">Monitor up to three servers simultaneously with live latency, jitter, packet loss, and a combined verdict. Perfect for comparing your router against a public server, or testing multiple targets at once.</p>
+          <div class="how-to">
+            <div class="how-to-title">How to use</div>
+            <ol class="how-to-steps">
+              <li data-step="1">Go to Pro → Compare</li>
+              <li data-step="2">Server 1 is shared with your Monitor tab</li>
+              <li data-step="3">Tap Change on Server 2 and 3 to add targets</li>
+              <li data-step="4">Watch the live verdict update at the top</li>
+              <li data-step="5">Green dot = healthy · Yellow = slow · Red = down</li>
+            </ol>
+          </div>
+        </div>
+
+        <!-- Profiles -->
+        <div class="pro-card">
+          <span class="pro-card-icon">👤</span>
+          <h3 class="pro-card-title">Named Profiles</h3>
+          <p class="pro-card-desc">Save your server URL, check interval, and a name as a profile. Switch between Home, Office, Travel, or any custom setup with a single tap — no re-entering settings every time.</p>
+          <div class="how-to">
+            <div class="how-to-title">How to use</div>
+            <ol class="how-to-steps">
+              <li data-step="1">Go to Pro → Profiles → New Profile</li>
+              <li data-step="2">Enter a name, server URL, and check interval</li>
+              <li data-step="3">Tap Save to store the profile</li>
+              <li data-step="4">Tap Activate on any profile to switch to it</li>
+              <li data-step="5">The active profile updates your Monitor server immediately</li>
+            </ol>
+          </div>
+        </div>
+
+        <!-- Walk Test -->
+        <div class="pro-card">
+          <span class="pro-card-icon">🚶</span>
+          <h3 class="pro-card-title">Walk Test</h3>
+          <p class="pro-card-desc">Record connection quality as you move through a space. The color-coded timeline shows exactly where your signal degrades — great for finding dead zones, testing router placement, or checking coverage in a building.</p>
+          <div class="how-to">
+            <div class="how-to-title">How to use</div>
+            <ol class="how-to-steps">
+              <li data-step="1">Go to Pro → Walk Test → Start Walk</li>
+              <li data-step="2">Move slowly through the space you want to test</li>
+              <li data-step="3">Watch the timeline build in real time</li>
+              <li data-step="4">Tap Stop Walk, name your session, and save it</li>
+              <li data-step="5">Green = WiFi good · Blue = Cellular good · Yellow = slow · Red = down. Tall bars = high latency</li>
+            </ol>
+          </div>
+        </div>
+
+        <!-- Network Log -->
+        <div class="pro-card">
+          <span class="pro-card-icon">📡</span>
+          <h3 class="pro-card-title">Network Connection Log</h3>
+          <p class="pro-card-desc">A running log of every WiFi and cellular connection change, with timestamps. Unknown WiFi networks are flagged in amber — tap to mark them as trusted or investigate further.</p>
+          <div class="how-to">
+            <div class="how-to-title">How to use</div>
+            <ol class="how-to-steps">
+              <li data-step="1">Go to Pro → Network Log</li>
+              <li data-step="2">Every connection change is logged automatically from app launch</li>
+              <li data-step="3">Amber "Unknown" badge = a WiFi network you haven't trusted yet</li>
+              <li data-step="4">Tap an entry → Trust Network to mark it as known</li>
+              <li data-step="5">Note: WiFi network names require Android. iOS shows connection type only due to Apple's privacy restrictions</li>
+            </ol>
+          </div>
+        </div>
+
+        <!-- Smart Alerts -->
+        <div class="pro-card">
+          <span class="pro-card-icon">🔔</span>
+          <h3 class="pro-card-title">Smart Alerts</h3>
+          <p class="pro-card-desc">Get notified when your connection drops, slows, or recovers — but only after a sustained problem. Configurable thresholds mean you won't be spammed by brief blips. Requires TrueSignal to be open.</p>
+          <div class="how-to">
+            <div class="how-to-title">How to use</div>
+            <ol class="how-to-steps">
+              <li data-step="1">Go to Pro → Smart Alerts</li>
+              <li data-step="2">Toggle Enable Smart Alerts (allows notification permission)</li>
+              <li data-step="3">Enable individual alerts: Connection lost, Slow connection, Connection restored</li>
+              <li data-step="4">Set thresholds — alert after 15s / 30s / 60s offline, or 1m / 2m / 5m slow</li>
+              <li data-step="5">TrueSignal must be in the foreground to fire alerts</li>
+            </ol>
+          </div>
+        </div>
+
+        <!-- SignalFinder Pro tip -->
+        <div class="pro-card">
+          <span class="pro-card-icon">🧭</span>
+          <h3 class="pro-card-title">SignalFinder — Deep Dive</h3>
+          <p class="pro-card-desc">SignalFinder is free and uses your phone's compass to map signal quality by direction. Rotate a full 360° for the most reliable result. The confidence bar tells you how much to trust the reading.</p>
+          <div class="how-to">
+            <div class="how-to-title">How to get the best results</div>
+            <ol class="how-to-steps">
+              <li data-step="1">Go to the SignalFinder tab → Tap Scan</li>
+              <li data-step="2">Rotate your phone slowly through a full 360°</li>
+              <li data-step="3">Keep rotating until Confidence reaches 80%+ for best accuracy</li>
+              <li data-step="4">The green wedge shows the best signal direction</li>
+              <li data-step="5">Move towards the indicated direction and re-scan to confirm</li>
+            </ol>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -1073,24 +829,24 @@
   <!-- PLATFORMS -->
   <section class="platforms-section" id="platforms">
     <p class="section-label">Platforms</p>
-    <h2 class="section-title" style="margin-bottom:40px">Everywhere you need it.</h2>
+    <h2 class="section-title" style="margin-bottom:40px">Available now on iOS and Android.</h2>
     <div class="platforms-grid">
-      <div class="platform-card">
-        <span class="platform-icon">🪟</span>
-        <div class="platform-name">Windows</div>
-        <p class="platform-desc">Full desktop app with system tray icon, 24-hour history, desktop notifications, and launch on startup.</p>
-        <span class="platform-badge">Available Now</span>
-      </div>
       <div class="platform-card">
         <span class="platform-icon">📱</span>
         <div class="platform-name">iOS</div>
-        <p class="platform-desc">Native iPhone and iPad app with home screen widget showing live connection status at a glance.</p>
+        <p class="platform-desc">Native iPhone app. Free features available immediately. Upgrade to Pro from inside the app. Requires iOS 15 or later.</p>
         <span class="platform-badge">Available Now</span>
       </div>
-      <div class="platform-card coming-soon">
+      <div class="platform-card">
         <span class="platform-icon">🤖</span>
         <div class="platform-name">Android</div>
-        <p class="platform-desc">Android app with home screen widget, WiFi and cellular detection, and connection type display.</p>
+        <p class="platform-desc">Android app coming soon to Google Play. WiFi network name detection will be available on Android (requires location permission).</p>
+        <span class="platform-badge">Coming Soon</span>
+      </div>
+      <div class="platform-card" style="opacity:0.5">
+        <span class="platform-icon">🪟</span>
+        <div class="platform-name">Windows</div>
+        <p class="platform-desc">Desktop app with system tray icon, persistent monitoring, and desktop notifications. In development.</p>
         <span class="platform-badge soon">Coming Soon</span>
       </div>
     </div>
@@ -1100,26 +856,79 @@
   <div class="pricing-section" id="pricing">
     <div class="pricing-inner">
       <p class="section-label" style="text-align:center">Pricing</p>
-      <h2 class="section-title" style="text-align:center;margin:0 auto 40px">Simple pricing.<br>Every platform.</h2>
-      <div class="price-card">
-        <div class="price-amount"><sup>$</sup>0.99</div>
-        <p class="price-period">per platform, per month · cancel anytime</p>
-        <ul class="price-features">
-          <li>Real-time ping monitoring</li>
-          <li>Green / yellow / red status indicator</li>
-          <li>SignalFinder — map your WiFi dead zones</li>
-          <li>Desktop notifications & tray icon (Windows)</li>
-          <li>Home screen widget (mobile)</li>
-          <li>Available on Windows, iOS & Android</li>
-          <li>No account required · completely anonymous</li>
-        </ul>
-        <a href="https://apps.apple.com/app/truesignal/id6760624783" class="btn btn-primary" style="width:100%;justify-content:center;font-size:14px;margin-bottom:12px;" target="_blank">
-          <span>📱</span> Download on App Store
-        </a>
-        <a href="#" class="btn btn-secondary btn-soon" style="width:100%;justify-content:center;font-size:14px;">
-          <span>🪟</span> Windows — Coming Soon
-        </a>
+      <h2 class="section-title" style="text-align:center;margin:0 auto 16px">Start free. Go Pro when you're ready.</h2>
+      <p style="font-size:14px;color:var(--muted);text-align:center;margin-bottom:56px;line-height:1.7;">TrueSignal is free to use. Pro adds advanced diagnostics tools — upgrade anytime from inside the app.</p>
+
+      <div class="pricing-grid">
+
+        <!-- Free -->
+        <div class="price-card">
+          <span class="price-card-badge free-badge">Free</span>
+          <div class="price-name">TrueSignal</div>
+          <div class="price-amount"><sup>$</sup><span class="big">0</span></div>
+          <p class="price-period">Always free · no card required</p>
+          <div class="price-divider"></div>
+          <ul class="price-features">
+            <li><span class="check">✓</span> Real-time ping monitoring</li>
+            <li><span class="check">✓</span> Green / yellow / red status</li>
+            <li><span class="check">✓</span> Stability score (jitter, loss, uptime)</li>
+            <li><span class="check">✓</span> Recent history chart</li>
+            <li><span class="check">✓</span> SignalFinder</li>
+            <li><span class="check">✓</span> Event log</li>
+            <li><span class="check">✓</span> Custom ping server</li>
+            <li><span class="check">✓</span> No account · no tracking</li>
+          </ul>
+          <a href="https://apps.apple.com/app/truesignal/id6760624783" class="btn btn-secondary" style="width:100%;justify-content:center;" target="_blank">
+            Download Free
+          </a>
+        </div>
+
+        <!-- Pro Monthly / Annual -->
+        <div class="price-card featured">
+          <span class="price-card-badge pro-badge">✦ Pro</span>
+          <div class="price-name">TrueSignal Pro</div>
+          <div class="price-amount"><sup>$</sup><span class="big">0.99</span></div>
+          <p class="price-period">per month · or $9.99/year (save 17%)</p>
+          <div class="price-divider"></div>
+          <ul class="price-features">
+            <li><span class="check">✓</span> Everything in Free</li>
+            <li><span class="check">✓</span> Compare Mode — 3 servers live</li>
+            <li><span class="check">✓</span> Named Profiles — one-tap switching</li>
+            <li><span class="check">✓</span> Walk Test — map signal as you move</li>
+            <li><span class="check">✓</span> Network Connection Log</li>
+            <li><span class="check">✓</span> Smart Alerts — offline &amp; slow</li>
+            <li><span class="check">✓</span> Cancel anytime</li>
+          </ul>
+          <a href="https://apps.apple.com/app/truesignal/id6760624783" class="btn btn-primary" style="width:100%;justify-content:center;" target="_blank">
+            Get Pro
+          </a>
+        </div>
+
+        <!-- Lifetime -->
+        <div class="price-card">
+          <span class="price-card-badge pro-badge">✦ Lifetime</span>
+          <div class="price-name">Pro Forever</div>
+          <div class="price-amount"><sup>$</sup><span class="big">19.99</span></div>
+          <p class="price-period">one-time payment · never pay again</p>
+          <div class="price-divider"></div>
+          <ul class="price-features">
+            <li><span class="check">✓</span> Everything in Pro</li>
+            <li><span class="check">✓</span> Pay once, own forever</li>
+            <li><span class="check">✓</span> All future Pro features included</li>
+            <li><span class="check">✓</span> Best value if you use it regularly</li>
+            <li><span class="check dim">—</span> <span class="dim">Equivalent to ~2 years of annual</span></li>
+          </ul>
+          <a href="https://apps.apple.com/app/truesignal/id6760624783" class="btn btn-secondary" style="width:100%;justify-content:center;" target="_blank">
+            Get Lifetime
+          </a>
+        </div>
+
       </div>
+
+      <p class="pricing-note-bottom">
+        All purchases managed through Apple App Store or Google Play. Subscriptions auto-renew unless cancelled at least 24 hours before renewal.
+        Lifetime is a one-time non-consumable in-app purchase. No refunds on digital purchases per platform policies.
+      </p>
     </div>
   </div>
 
@@ -1131,8 +940,9 @@
     </div>
     <ul class="footer-links">
       <li><a href="#features">Features</a></li>
-      <li><a href="#platforms">Platforms</a></li>
+      <li><a href="#pro">Pro</a></li>
       <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#platforms">Platforms</a></li>
       <li><a href="https://truesignal.live/privacy" target="_blank">Privacy Policy</a></li>
     </ul>
     <p class="footer-copy">© 2026 TrueSignal. Your bars lie.</p>
