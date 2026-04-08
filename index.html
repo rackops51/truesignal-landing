@@ -576,7 +576,16 @@
       .stat-item { min-width: 50%; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); }
       footer { flex-direction: column; gap: 20px; text-align: center; }
       .footer-links { flex-wrap: wrap; justify-content: center; }
-      .wild-content { flex-direction: column; align-items: flex-start; padding: 24px; }
+      /* Stack image above content on mobile — card sits below photo */
+      .wild-section { display: flex; flex-direction: column; }
+      .wild-image { aspect-ratio: 4 / 3; }
+      .wild-overlay { display: none; }
+      .wild-content {
+        position: static;
+        flex-direction: column; align-items: flex-start;
+        padding: 24px; gap: 20px;
+        background: #0d0d1a;
+      }
       .wild-reading { width: 100%; }
       .built-by { padding: 48px 24px; }
       .built-by-inner { flex-direction: column; text-align: center; }
@@ -839,6 +848,7 @@
   <div class="pricing-section" id="pricing">
     <div class="pricing-inner">
       <p class="section-label" style="text-align:center">Pricing</p>
+      <h2 class="section-title" style="text-align:center;margin:0 auto 40px">One price.<br>All platforms.</h2>
       <div class="price-card">
         <div class="price-amount"><sup>$</sup>0.99</div>
         <p class="price-period">per month · cancel anytime</p>
