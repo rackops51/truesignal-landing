@@ -3,36 +3,76 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TrueSignal — Your bars lie. This doesn't.</title>
-  <meta name="description" content="TrueSignal measures your actual connection quality using live ping monitoring — not misleading signal bars. Built by Dave Schwind." />
+
+  <!-- ── Primary meta tags ──────────────────────────────────────────── -->
+  <title>TrueSignal: Real Network Quality Monitor for iOS & Android</title>
+  <meta name="description" content="TrueSignal measures your actual connection quality with active ping monitoring. Generate ISP evidence reports, track baselines, and view full timeline history. iOS and Android." />
+  <meta name="author" content="Dave Schwind" />
+  <link rel="canonical" href="https://truesignal.live/" />
+  <meta name="theme-color" content="#0d0d1a" />
+
+  <!-- ── Open Graph (Facebook, LinkedIn, iMessage, Slack, Discord) ── -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://truesignal.live/" />
+  <meta property="og:title" content="TrueSignal: Real Network Quality Monitor" />
+  <meta property="og:description" content="Your bars lie. This doesn't. Active ping monitoring with ISP evidence reports, connection baselines, and a unified timeline of every event." />
+  <meta property="og:image" content="https://truesignal.live/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content="TrueSignal" />
+
+  <!-- ── Twitter Card ───────────────────────────────────────────────── -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://truesignal.live/" />
+  <meta name="twitter:title" content="TrueSignal: Real Network Quality Monitor" />
+  <meta name="twitter:description" content="Your bars lie. This doesn't. Active ping monitoring with ISP evidence reports." />
+  <meta name="twitter:image" content="https://truesignal.live/og-image.png" />
+
+  <!-- ── Favicons ──────────────────────────────────────────────────── -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+  <!-- ── Fonts ─────────────────────────────────────────────────────── -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
 
-  <!-- Schema.org Person markup for SEO -->
+  <!-- ── Structured data (Schema.org) ──────────────────────────────── -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "MobileApplication",
     "name": "TrueSignal",
-    "description": "Real-time connection quality monitor using live ping monitoring.",
+    "description": "Real network quality monitor with active ping monitoring, ISP evidence reports, connection baselines, unified timeline, and one-tap diagnostics.",
     "operatingSystem": "iOS, Android",
     "applicationCategory": "UtilitiesApplication",
+    "url": "https://truesignal.live/",
     "author": {
       "@type": "Person",
       "name": "Dave Schwind",
       "jobTitle": "Independent Developer"
     },
-    "offers": {
-      "@type": "Offer",
-      "price": "0.99",
-      "priceCurrency": "USD",
-      "priceSpecification": {
-        "@type": "UnitPriceSpecification",
+    "offers": [
+      {
+        "@type": "Offer",
+        "name": "Monthly",
         "price": "0.99",
-        "priceCurrency": "USD",
-        "unitCode": "MON"
+        "priceCurrency": "USD"
+      },
+      {
+        "@type": "Offer",
+        "name": "Annual",
+        "price": "9.99",
+        "priceCurrency": "USD"
+      },
+      {
+        "@type": "Offer",
+        "name": "Lifetime",
+        "price": "19.99",
+        "priceCurrency": "USD"
       }
-    }
+    ]
   }
   </script>
 
@@ -78,7 +118,7 @@
       pointer-events: none; z-index: 0;
     }
 
-    /* NAV */
+    /* ── NAV ──────────────────────────────────────────────────────── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
@@ -112,7 +152,7 @@
     }
     .nav-links a:hover { color: var(--green); }
 
-    /* HERO */
+    /* ── HERO ─────────────────────────────────────────────────────── */
     .hero {
       position: relative; z-index: 1; min-height: 100vh;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -195,7 +235,7 @@
       display: inline-flex; align-items: center; gap: 8px;
       background: rgba(46,204,113,0.1); border: 1px solid rgba(46,204,113,0.25);
       border-radius: 100px; padding: 8px 20px; font-size: 13px;
-      color: var(--green); margin-bottom: 16px;
+      color: var(--green); margin-bottom: 32px;
     }
 
     .status-dot {
@@ -203,31 +243,25 @@
       animation: pulse-dot 1.5s ease-in-out infinite;
     }
 
+    /* ── STORE BADGES ─────────────────────────────────────────────── */
     .download-group {
-      display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;
+      display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; align-items: center;
       margin-bottom: 20px; opacity: 0; animation: fade-up 0.6s ease forwards 0.8s;
     }
 
-    .btn {
-      display: inline-flex; align-items: center; gap: 10px;
-      padding: 14px 24px; border-radius: 10px;
-      font-family: 'DM Mono', monospace; font-size: 13px;
-      text-decoration: none; transition: all 0.2s; border: 1px solid transparent; cursor: pointer;
+    .store-badge {
+      display: inline-block; transition: transform 0.2s, opacity 0.2s;
+      text-decoration: none;
     }
-
-    .btn-primary { background: var(--green); color: #0d1a0d; font-weight: 500; }
-    .btn-primary:hover { background: #27ae60; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(46,204,113,0.3); }
-    .btn-secondary { background: rgba(255,255,255,0.05); color: var(--text); border-color: rgba(255,255,255,0.1); }
-    .btn-secondary:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); transform: translateY(-2px); }
-    .btn-soon { opacity: 0.4; cursor: default; background: rgba(255,255,255,0.03); color: var(--muted); border-color: rgba(255,255,255,0.06); }
-    .btn-icon { font-size: 18px; }
+    .store-badge img { display: block; height: 52px; width: auto; }
+    .store-badge:hover { transform: translateY(-2px); opacity: 0.9; }
 
     .pricing-note {
       font-size: 11px; color: var(--muted); letter-spacing: 0.05em;
       opacity: 0; animation: fade-up 0.6s ease forwards 1s;
     }
 
-    /* STATS STRIP */
+    /* ── STATS STRIP ──────────────────────────────────────────────── */
     .stats-strip {
       position: relative; z-index: 1; display: flex; justify-content: center;
       border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05);
@@ -235,7 +269,7 @@
     }
 
     .stat-item {
-      flex: 1; max-width: 200px; padding: 32px 24px; text-align: center;
+      flex: 1; max-width: 220px; padding: 32px 24px; text-align: center;
       border-right: 1px solid rgba(255,255,255,0.05);
     }
     .stat-item:last-child { border-right: none; }
@@ -247,7 +281,7 @@
 
     .stat-label { font-size: 10px; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; }
 
-    /* FEATURES */
+    /* ── SECTIONS ─────────────────────────────────────────────────── */
     .section {
       position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 100px 24px;
     }
@@ -263,6 +297,7 @@
       letter-spacing: -0.02em; margin-bottom: 60px; max-width: 600px;
     }
 
+    /* ── FEATURES ─────────────────────────────────────────────────── */
     .features-grid {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 2px; background: rgba(255,255,255,0.04);
@@ -271,7 +306,11 @@
 
     .feature-card { background: var(--bg); padding: 36px 32px; transition: background 0.2s; }
     .feature-card:hover { background: var(--bg2); }
-    .feature-icon { font-size: 28px; margin-bottom: 16px; display: block; }
+
+    .feature-icon {
+      width: 32px; height: 32px; margin-bottom: 16px; color: var(--green); display: block;
+    }
+    .feature-icon svg { width: 100%; height: 100%; }
 
     .feature-title {
       font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700;
@@ -280,7 +319,100 @@
 
     .feature-desc { font-size: 13px; color: var(--muted); line-height: 1.7; }
 
-    /* CHORNOBYL — IN THE WILD */
+    .feature-more-note {
+      text-align: center; margin-top: 32px; font-size: 13px; color: var(--muted);
+    }
+    .feature-more-note a { color: var(--green); text-decoration: none; font-weight: 500; }
+    .feature-more-note a:hover { text-decoration: underline; }
+
+    /* ── EVIDENCE PACK SECTION ────────────────────────────────────── */
+    .evidence-section {
+      position: relative; z-index: 1;
+      background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
+      border-top: 1px solid rgba(255,255,255,0.04);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .evidence-inner {
+      max-width: 1100px; margin: 0 auto; padding: 100px 24px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+
+    .evidence-text .section-title { margin-bottom: 24px; }
+    .evidence-desc { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 24px; }
+
+    .evidence-checklist { list-style: none; margin-bottom: 32px; }
+    .evidence-checklist li {
+      font-size: 13px; color: var(--text); padding: 8px 0;
+      display: flex; align-items: flex-start; gap: 12px;
+    }
+    .evidence-checklist li::before {
+      content: ''; flex-shrink: 0; margin-top: 7px;
+      width: 6px; height: 6px; border-radius: 50%; background: var(--green);
+      box-shadow: 0 0 8px var(--green-glow);
+    }
+
+    .evidence-mockup {
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 36px 32px;
+      color: #1a1a2e;
+      font-family: 'DM Mono', monospace; font-size: 10px; line-height: 1.6;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.06);
+      aspect-ratio: 8.5 / 11; max-width: 420px; margin: 0 auto;
+      position: relative; overflow: hidden;
+    }
+
+    .evidence-letterhead {
+      border-bottom: 2px solid var(--green); padding-bottom: 12px; margin-bottom: 18px;
+    }
+    .evidence-brand {
+      display: flex; align-items: baseline; justify-content: space-between;
+    }
+    .evidence-brand-name {
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 22px;
+      color: var(--green); letter-spacing: 0.01em;
+    }
+    .evidence-brand-url { font-size: 9px; color: #888; }
+    .evidence-tagline { font-size: 10px; color: #666; font-style: italic; margin-top: 4px; }
+    .evidence-doc-title {
+      margin-top: 12px; font-size: 14px; font-weight: 700; color: #1a1a2e;
+    }
+
+    .evidence-meta {
+      background: #f5f5f8; border-radius: 4px; padding: 10px 14px;
+      font-size: 9px; margin-bottom: 16px;
+    }
+    .evidence-meta-row { display: flex; gap: 8px; padding: 2px 0; }
+    .evidence-meta-key { color: #666; width: 100px; flex-shrink: 0; }
+    .evidence-meta-val { color: #1a1a2e; font-weight: 500; }
+
+    .evidence-h2 {
+      font-size: 11px; font-weight: 600; color: #1a1a2e; text-transform: uppercase;
+      letter-spacing: 0.1em; border-bottom: 1px solid #e0e0ea; padding-bottom: 4px;
+      margin-bottom: 10px; margin-top: 14px;
+    }
+
+    .evidence-summary {
+      background: #f0faf3; border-left: 3px solid var(--green);
+      padding: 10px 14px; font-size: 10px; color: #1a3a22;
+      border-radius: 2px; line-height: 1.6;
+    }
+
+    .evidence-stats {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 10px;
+    }
+    .evidence-stat {
+      background: #f5f5f8; border-radius: 4px; padding: 10px 4px; text-align: center;
+    }
+    .evidence-stat-val { font-size: 18px; font-weight: 700; line-height: 1; }
+    .evidence-stat-val.red { color: #c0392b; }
+    .evidence-stat-val.orange { color: #c46419; }
+    .evidence-stat-val.green { color: #27ae60; }
+    .evidence-stat-val.neutral { color: #1a1a2e; }
+    .evidence-stat-label { font-size: 7px; color: #666; letter-spacing: 0.05em; margin-top: 3px; }
+
+    /* ── CHORNOBYL "IN THE WILD" ─────────────────────────────────── */
     .wild-section {
       position: relative; z-index: 1; width: 100%; overflow: hidden;
     }
@@ -356,7 +488,7 @@
 
     .wild-location { font-size: 10px; color: rgba(170,170,204,0.6); letter-spacing: 0.05em; }
 
-    /* DEMO SECTION */
+    /* ── DEMO / HOW IT WORKS ─────────────────────────────────────── */
     .demo-section {
       position: relative; z-index: 1; background: var(--bg2);
       border-top: 1px solid rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.04);
@@ -368,7 +500,7 @@
     }
 
     .demo-text .section-title { margin-bottom: 20px; }
-    .demo-desc { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 32px; }
+    .demo-desc { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 24px; }
 
     .mock-window {
       background: var(--navy); border-radius: 20px; overflow: hidden;
@@ -408,7 +540,15 @@
     }
 
     .mock-status { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; color: var(--green); margin-bottom: 4px; }
-    .mock-latency { font-size: 13px; color: var(--muted); margin-bottom: 16px; }
+    .mock-latency { font-size: 13px; color: var(--muted); margin-bottom: 10px; }
+
+    .mock-diagnosis {
+      width: 100%; background: rgba(46,204,113,0.08); border: 1px solid rgba(46,204,113,0.2);
+      border-radius: 10px; padding: 10px 12px; margin-bottom: 14px;
+    }
+    .mock-diagnosis-title { font-size: 11px; font-weight: 700; color: var(--green); margin-bottom: 3px; }
+    .mock-diagnosis-detail { font-size: 10px; color: var(--muted); line-height: 1.5; }
+
     .mock-stats { display: flex; gap: 8px; margin-bottom: 16px; width: 100%; }
 
     .mock-stat {
@@ -420,7 +560,7 @@
     .mock-bars { display: flex; align-items: flex-end; gap: 4px; height: 50px; width: 100%; margin-bottom: 6px; }
     .mock-bar { flex: 1; border-radius: 3px; background: var(--green); opacity: 0.8; }
 
-    /* PLATFORMS */
+    /* ── PLATFORMS ────────────────────────────────────────────────── */
     .platforms-section {
       position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 100px 24px;
     }
@@ -440,11 +580,14 @@
 
     .platform-card:hover { border-color: rgba(46,204,113,0.2); transform: translateY(-4px); }
     .platform-card:hover::before { opacity: 1; }
-    .platform-card.coming-soon { opacity: 0.5; }
+    .platform-card.coming-soon { opacity: 0.55; }
     .platform-card.coming-soon:hover { transform: none; }
 
-    .platform-icon { font-size: 36px; margin-bottom: 16px; display: block; }
-    .platform-name { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+    .platform-icon {
+      width: 36px; height: 36px; margin-bottom: 18px; color: var(--green); display: block;
+    }
+    .platform-icon svg { width: 100%; height: 100%; }
+    .platform-name { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 8px; color: var(--white); }
     .platform-desc { font-size: 12px; color: var(--muted); line-height: 1.7; margin-bottom: 20px; }
 
     .platform-badge {
@@ -457,37 +600,83 @@
       background: rgba(255,255,255,0.04); color: var(--muted); border-color: rgba(255,255,255,0.08);
     }
 
-    /* PRICING */
+    /* ── PRICING ──────────────────────────────────────────────────── */
     .pricing-section {
       position: relative; z-index: 1; background: var(--bg2);
       border-top: 1px solid rgba(255,255,255,0.04);
     }
 
-    .pricing-inner { max-width: 600px; margin: 0 auto; padding: 100px 24px; text-align: center; }
+    .pricing-inner { max-width: 900px; margin: 0 auto; padding: 100px 24px; text-align: center; }
 
-    .price-card {
-      background: var(--navy); border: 1px solid rgba(46,204,113,0.2);
-      border-radius: 20px; padding: 48px 40px; position: relative; overflow: hidden;
+    .pricing-tiers {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 40px;
     }
 
-    .price-card::before {
+    .price-tier {
+      background: var(--navy); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px; padding: 28px 24px; position: relative; overflow: hidden;
+      text-align: left; transition: all 0.2s;
+    }
+
+    .price-tier:hover { border-color: rgba(46,204,113,0.3); transform: translateY(-2px); }
+
+    .price-tier.highlight {
+      border-color: rgba(46,204,113,0.4);
+      background: linear-gradient(180deg, rgba(46,204,113,0.06) 0%, var(--navy) 100%);
+    }
+
+    .price-tier.highlight::before {
+      content: 'BEST VALUE'; position: absolute; top: 14px; right: 14px;
+      font-size: 8px; letter-spacing: 0.2em; color: var(--green);
+      background: rgba(46,204,113,0.12); padding: 3px 8px; border-radius: 100px;
+    }
+
+    .price-tier-name {
+      font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700;
+      color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .price-tier-amount {
+      font-family: 'Syne', sans-serif; font-size: 42px; font-weight: 800;
+      color: var(--white); line-height: 1; margin-bottom: 6px;
+    }
+    .price-tier-amount sup { font-size: 18px; vertical-align: super; color: var(--muted); font-weight: 400; }
+
+    .price-tier-period { font-size: 11px; color: var(--muted); letter-spacing: 0.05em; }
+
+    .price-card-full {
+      background: var(--navy); border: 1px solid rgba(46,204,113,0.2);
+      border-radius: 20px; padding: 36px 32px; position: relative; overflow: hidden;
+      text-align: left;
+    }
+
+    .price-card-full::before {
       content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
       background: linear-gradient(90deg, var(--green), #27ae60);
     }
 
-    .price-amount { font-family: 'Syne', sans-serif; font-size: 64px; font-weight: 800; color: var(--white); line-height: 1; margin-bottom: 4px; }
-    .price-amount sup { font-size: 24px; vertical-align: super; color: var(--muted); }
-    .price-period { font-size: 13px; color: var(--muted); margin-bottom: 32px; }
+    .price-features-title {
+      font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px;
+      color: var(--white); letter-spacing: 0.05em; margin-bottom: 18px; text-align: center;
+    }
 
-    .price-features { list-style: none; margin-bottom: 36px; text-align: left; }
+    .price-features {
+      list-style: none; margin-bottom: 28px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4px 24px;
+    }
     .price-features li {
-      font-size: 13px; color: var(--text); padding: 10px 0;
+      font-size: 12px; color: var(--text); padding: 8px 0;
       border-bottom: 1px solid rgba(255,255,255,0.04);
       display: flex; align-items: center; gap: 10px;
     }
-    .price-features li::before { content: '✓'; color: var(--green); font-weight: bold; flex-shrink: 0; }
+    .price-features li::before {
+      content: ''; width: 5px; height: 5px; border-radius: 50%;
+      background: var(--green); box-shadow: 0 0 6px var(--green-glow);
+      flex-shrink: 0;
+    }
 
-    /* ── BUILT BY ── */
+    /* ── BUILT BY ─────────────────────────────────────────────────── */
     .built-by {
       position: relative; z-index: 1;
       border-top: 1px solid rgba(255,255,255,0.04);
@@ -522,7 +711,7 @@
 
     .built-by-bio { font-size: 12px; color: var(--muted); line-height: 1.7; }
 
-    /* FOOTER */
+    /* ── FOOTER ───────────────────────────────────────────────────── */
     footer {
       position: relative; z-index: 1;
       border-top: 1px solid rgba(255,255,255,0.05);
@@ -537,7 +726,7 @@
     .footer-links a:hover { color: var(--white); }
     .footer-copy { font-size: 11px; color: var(--muted); }
 
-    /* SIGNAL BARS VISUAL */
+    /* ── SIGNAL BARS HERO VISUAL ──────────────────────────────────── */
     .signal-bars-hero {
       display: flex; align-items: flex-end; gap: 6px; margin-bottom: 48px;
       opacity: 0; animation: fade-up 0.8s ease forwards 0.45s;
@@ -566,17 +755,20 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* RESPONSIVE */
+    /* ── RESPONSIVE ──────────────────────────────────────────────── */
     @media (max-width: 768px) {
       nav { padding: 16px 20px; }
       .nav-links { display: none; }
+      .evidence-inner { grid-template-columns: 1fr; gap: 48px; }
+      .evidence-mockup { max-width: 340px; }
       .demo-inner { grid-template-columns: 1fr; gap: 48px; }
       .platforms-grid { grid-template-columns: 1fr; }
+      .pricing-tiers { grid-template-columns: 1fr; }
+      .price-features { grid-template-columns: 1fr; }
       .stats-strip { flex-wrap: wrap; }
       .stat-item { min-width: 50%; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); }
       footer { flex-direction: column; gap: 20px; text-align: center; }
       .footer-links { flex-wrap: wrap; justify-content: center; }
-      /* Stack image above content on mobile — card sits below photo */
       .wild-section { display: flex; flex-direction: column; }
       .wild-image { aspect-ratio: 4 / 3; }
       .wild-overlay { display: none; }
@@ -589,12 +781,13 @@
       .wild-reading { width: 100%; }
       .built-by { padding: 48px 24px; }
       .built-by-inner { flex-direction: column; text-align: center; }
+      .store-badge img { height: 44px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
+  <!-- ── NAV ────────────────────────────────────────────────────── -->
   <nav>
     <a href="#" class="nav-logo">
       <span class="nav-dot"></span>
@@ -602,13 +795,14 @@
     </a>
     <ul class="nav-links">
       <li><a href="#features">Features</a></li>
+      <li><a href="#evidence">Evidence Pack</a></li>
       <li><a href="#platforms">Platforms</a></li>
       <li><a href="#pricing">Pricing</a></li>
-      <li><a href="https://truesignal.live/privacy" target="_blank">Privacy</a></li>
+      <li><a href="https://truesignal.live/privacy" target="_blank" rel="noopener">Privacy</a></li>
     </ul>
   </nav>
 
-  <!-- HERO -->
+  <!-- ── HERO ───────────────────────────────────────────────────── -->
   <section class="hero">
     <p class="hero-eyebrow">Real-time connectivity monitoring</p>
     <h1 class="hero-title">Your bars lie.<br><span class="highlight">This doesn't.</span></h1>
@@ -622,6 +816,7 @@
       <div class="hero-dot"></div>
     </div>
 
+    <!-- Signal bars visual -->
     <div class="signal-bars-hero">
       <div class="signal-bar-group">
         <div class="signal-bars bars-green">
@@ -659,85 +854,213 @@
       Connected · 24ms · via WiFi
     </div>
 
+    <!-- ── Store badges ── -->
     <div class="download-group">
-      <a href="https://apps.apple.com/app/id6760624783" class="btn btn-primary">
-        <span class="btn-icon">🍎</span> Download on App Store
+      <a href="https://apps.apple.com/app/id6760624783"
+         class="store-badge"
+         aria-label="Download TrueSignal on the App Store"
+         target="_blank" rel="noopener">
+        <img src="/assets/app-store-badge.svg" alt="Download on the App Store" />
       </a>
-      <a href="#" class="btn btn-secondary btn-soon">
-        <span class="btn-icon">🤖</span> Google Play — Coming Soon
-      </a>
-      <a href="#" class="btn btn-secondary btn-soon">
-        <span class="btn-icon">🪟</span> Windows — Coming Soon
+      <a href="https://play.google.com/store/apps/details?id=com.rackops.truesignal"
+         class="store-badge"
+         aria-label="Get TrueSignal on Google Play"
+         target="_blank" rel="noopener">
+        <img src="/assets/google-play-badge.png" alt="Get it on Google Play" />
       </a>
     </div>
 
-    <p class="pricing-note">$0.99 / month · Free to try · Cancel anytime</p>
+    <p class="pricing-note">Free to try · From $0.99/month · Lifetime available</p>
   </section>
 
-  <!-- STATS -->
+  <!-- ── STATS STRIP ──────────────────────────────────────────── -->
   <div class="stats-strip">
     <div class="stat-item">
       <span class="stat-value">&lt;1s</span>
-      <span class="stat-label">Update speed</span>
+      <span class="stat-label">Status updates</span>
     </div>
     <div class="stat-item">
-      <span class="stat-value">24hr</span>
-      <span class="stat-label">History tracked</span>
+      <span class="stat-value">60</span>
+      <span class="stat-label">Days of history</span>
     </div>
     <div class="stat-item">
-      <span class="stat-value">3</span>
-      <span class="stat-label">Platforms</span>
+      <span class="stat-value">2</span>
+      <span class="stat-label">Live platforms</span>
     </div>
     <div class="stat-item">
       <span class="stat-value">0</span>
-      <span class="stat-label">False signals</span>
+      <span class="stat-label">Tracking · Ads · Accounts</span>
     </div>
   </div>
 
-  <!-- FEATURES -->
+  <!-- ── FEATURES ─────────────────────────────────────────────── -->
   <section class="section" id="features">
     <p class="section-label">Why TrueSignal</p>
     <h2 class="section-title">Built for people who need to know.</h2>
     <div class="features-grid">
+
       <div class="feature-card">
-        <span class="feature-icon">🎯</span>
+        <span class="feature-icon">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="16" cy="16" r="10" />
+            <circle cx="16" cy="16" r="4" fill="currentColor" fill-opacity="0.15" />
+            <circle cx="16" cy="16" r="1.5" fill="currentColor" />
+          </svg>
+        </span>
         <h3 class="feature-title">Ping-based accuracy</h3>
-        <p class="feature-desc">Uses live pings to measure real-world latency — not signal strength bars which can be completely misleading.</p>
+        <p class="feature-desc">Active ping monitoring measures real-world latency to the server you choose. Not signal bars, not estimates, just the truth.</p>
       </div>
+
       <div class="feature-card">
-        <span class="feature-icon">🟢</span>
-        <h3 class="feature-title">Instant visual status</h3>
-        <p class="feature-desc">Green, yellow, or red. Know your connection state at a glance without reading numbers or decoding icons.</p>
+        <span class="feature-icon">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="16" cy="16" r="12" />
+            <path d="M16 10v6l4 3" />
+          </svg>
+        </span>
+        <h3 class="feature-title">Plain-English diagnosis</h3>
+        <p class="feature-desc">Instead of raw metrics, TrueSignal explains what's happening in words. "Connection is slow. Latency is very high." No decoding required.</p>
       </div>
+
       <div class="feature-card">
-        <span class="feature-icon">📊</span>
-        <h3 class="feature-title">24-hour history</h3>
-        <p class="feature-desc">See min, max, average latency and uptime percentage over the last 24 hours. Spot patterns in your connection.</p>
+        <span class="feature-icon">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 22l6-8 5 5 8-11 5 7" />
+            <circle cx="10" cy="14" r="1.5" fill="currentColor" />
+            <circle cx="15" cy="19" r="1.5" fill="currentColor" />
+            <circle cx="23" cy="8" r="1.5" fill="currentColor" />
+          </svg>
+        </span>
+        <h3 class="feature-title">Network baselines</h3>
+        <p class="feature-desc">TrueSignal learns what's normal on each network you connect to, then flags when things are slower than usual. Not just slow. Slower than your normal.</p>
       </div>
+
       <div class="feature-card">
-        <span class="feature-icon">🔔</span>
-        <h3 class="feature-title">Smart alerts</h3>
-        <p class="feature-desc">Get notified the moment your connection drops or slows down — and when it recovers. Stay informed without watching.</p>
+        <span class="feature-icon">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="4" y1="12" x2="28" y2="12" />
+            <circle cx="10" cy="12" r="2" fill="currentColor" />
+            <circle cx="18" cy="12" r="2" />
+            <circle cx="24" cy="12" r="2" fill="currentColor" />
+            <line x1="4" y1="20" x2="28" y2="20" />
+            <circle cx="14" cy="20" r="2" />
+            <circle cx="22" cy="20" r="2" fill="currentColor" />
+          </svg>
+        </span>
+        <h3 class="feature-title">Unified Timeline</h3>
+        <p class="feature-desc">Every outage, brownout, network switch, and bookmark in one chronological feed. Filter by category, switch to trends view for per-day charts.</p>
       </div>
+
       <div class="feature-card">
-        <span class="feature-icon">🗂️</span>
-        <h3 class="feature-title">System tray & widgets</h3>
-        <p class="feature-desc">Lives quietly in your system tray or home screen widget. Always visible, never in the way.</p>
+        <span class="feature-icon">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 16h5l3-8 6 16 3-11 3 3h4" />
+          </svg>
+        </span>
+        <h3 class="feature-title">Smart Alerts</h3>
+        <p class="feature-desc">Get notified the moment your connection drops, slows down, or recovers. Stay informed without staring at a screen.</p>
       </div>
+
       <div class="feature-card">
-        <span class="feature-icon">⚡</span>
-        <h3 class="feature-title">Adjustable check rate</h3>
-        <p class="feature-desc">Check every 2, 4, 10, or 30 seconds. Balance battery life against how quickly you need to know.</p>
+        <span class="feature-icon">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="13" cy="13" r="8" />
+            <path d="M10 13l2 2 4-4" />
+            <line x1="19" y1="19" x2="27" y2="27" />
+          </svg>
+        </span>
+        <h3 class="feature-title">One-tap Diagnose</h3>
+        <p class="feature-desc">A full connection health check in 5 seconds. Tests your device, router, internet, DNS, captive portal, and ping target. Tells you exactly what's broken.</p>
+      </div>
+
+    </div>
+    <p class="feature-more-note">
+      Also included: SignalFinder · Walk Test · Compare · Profiles · Quality Score · Connection Sentinel · Before/After annotations · Webhooks. <a href="#pricing">See all</a>
+    </p>
+  </section>
+
+  <!-- ── EVIDENCE PACK ────────────────────────────────────────── -->
+  <section class="evidence-section" id="evidence">
+    <div class="evidence-inner">
+      <div class="evidence-text">
+        <p class="section-label">ISP Evidence Pack</p>
+        <h2 class="section-title">Proof your ISP<br>can't ignore.</h2>
+        <p class="evidence-desc">
+          Generate a formal PDF report documenting every outage and slowdown, complete with TrueSignal letterhead, executive summary, and talking points ready to paste into your support ticket.
+        </p>
+        <ul class="evidence-checklist">
+          <li>Branded letterhead with your tagline</li>
+          <li>Executive summary and total verified downtime</li>
+          <li>Full event timeline with millisecond timestamps</li>
+          <li>Talking points formatted for ISP support reps</li>
+          <li>Share via Mail, Messages, Slack, or Files</li>
+        </ul>
+        <p class="evidence-desc" style="margin-bottom:0;">
+          Built from 2.8.0 onward. Generate in three taps.
+        </p>
+      </div>
+
+      <!-- Evidence PDF mockup -->
+      <div class="evidence-mockup">
+        <div class="evidence-letterhead">
+          <div class="evidence-brand">
+            <span class="evidence-brand-name">TrueSignal</span>
+            <span class="evidence-brand-url">truesignal.live</span>
+          </div>
+          <div class="evidence-tagline">Your bars lie. This doesn't.</div>
+          <div class="evidence-doc-title">Connection Quality Report</div>
+        </div>
+
+        <div class="evidence-meta">
+          <div class="evidence-meta-row">
+            <span class="evidence-meta-key">Generated</span>
+            <span class="evidence-meta-val">Apr 22, 2026 3:42 PM</span>
+          </div>
+          <div class="evidence-meta-row">
+            <span class="evidence-meta-key">Monitored</span>
+            <span class="evidence-meta-val">google.com/generate_204</span>
+          </div>
+          <div class="evidence-meta-row">
+            <span class="evidence-meta-key">Duration</span>
+            <span class="evidence-meta-val">1.8 hours</span>
+          </div>
+        </div>
+
+        <div class="evidence-h2">Executive Summary</div>
+        <div class="evidence-summary">
+          Over the 1.8-hour monitored period, TrueSignal recorded 6 complete connection outages totaling 2m 2s of downtime and 1 sustained slowdown totaling 8s.
+        </div>
+
+        <div class="evidence-h2">Statistics</div>
+        <div class="evidence-stats">
+          <div class="evidence-stat">
+            <div class="evidence-stat-val red">6</div>
+            <div class="evidence-stat-label">Outages</div>
+          </div>
+          <div class="evidence-stat">
+            <div class="evidence-stat-val orange">1</div>
+            <div class="evidence-stat-label">Brownouts</div>
+          </div>
+          <div class="evidence-stat">
+            <div class="evidence-stat-val green">6</div>
+            <div class="evidence-stat-label">Recovered</div>
+          </div>
+          <div class="evidence-stat">
+            <div class="evidence-stat-val neutral">30</div>
+            <div class="evidence-stat-label">Events</div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- CHORNOBYL — IN THE WILD -->
+  <!-- ── CHORNOBYL IN THE WILD ────────────────────────────────── -->
   <div class="wild-section">
     <img
       src="https://rackops51.github.io/truesignal-landing/assets/chornobyl.jpg"
       alt="TrueSignal showing Slow Connection at the Duga radar installation, Chornobyl Exclusion Zone"
       class="wild-image"
+      loading="lazy"
     />
     <div class="wild-overlay"></div>
     <div class="wild-content">
@@ -745,30 +1068,30 @@
         <span class="wild-eyebrow">TrueSignal in the wild</span>
         <h2 class="wild-title">Even next to the Duga radar,<br>the truth doesn't change.</h2>
         <p class="wild-desc">
-          Photographed at the Chornobyl Exclusion Zone — one of the most iconic antenna structures on Earth.
-          Four bars. Slow connection. TrueSignal doesn't lie.
+          Photographed at the Chornobyl Exclusion Zone, one of the most iconic antenna structures on Earth. Four bars. Slow connection. TrueSignal doesn't lie.
         </p>
       </div>
       <div class="wild-reading">
         <span class="wild-reading-label">Live reading</span>
         <div class="wild-status-dot"></div>
         <div class="wild-status-text">Slow Connection</div>
-        <div class="wild-location">📍 Chornobyl Exclusion Zone</div>
+        <div class="wild-location">Chornobyl Exclusion Zone</div>
       </div>
     </div>
   </div>
 
-  <!-- DEMO -->
+  <!-- ── DEMO / HOW IT WORKS ──────────────────────────────────── -->
   <div class="demo-section">
     <div class="demo-inner">
       <div class="demo-text">
         <p class="section-label">How it works</p>
         <h2 class="section-title">Simple. Honest. Instant.</h2>
-        <p class="demo-desc">TrueSignal pings a reliable server every few seconds and measures the round-trip time. Under 150ms is green. Under 500ms is yellow. Anything else is red. No algorithms, no guessing — just the truth.</p>
-        <p class="demo-desc">The 24-hour range graph shows you the shape of your connection over time — so you can tell your ISP exactly when and how bad it gets.</p>
-        <a href="https://apps.apple.com/app/id6760624783" class="btn btn-primary" style="display:inline-flex;">
-          <span class="btn-icon">🍎</span> Download on App Store
-        </a>
+        <p class="demo-desc">
+          TrueSignal pings a reliable server every few seconds and measures the round-trip time. Under 150ms is green. Under 500ms is yellow. Anything else is red. No algorithms, no guessing, just the truth.
+        </p>
+        <p class="demo-desc">
+          The Diagnosis card translates raw metrics into plain English. The Baselines engine learns what's normal on each of your networks. The Timeline captures every event, so you can prove what you experienced.
+        </p>
       </div>
       <div>
         <div class="mock-window">
@@ -782,6 +1105,12 @@
             <div class="mock-dot"></div>
             <div class="mock-status">Connected</div>
             <div class="mock-latency">28ms · Just checked</div>
+
+            <div class="mock-diagnosis">
+              <div class="mock-diagnosis-title">✓ Connection looks good</div>
+              <div class="mock-diagnosis-detail">28ms median latency with stable ping variation. No significant issues detected.</div>
+            </div>
+
             <div class="mock-stats">
               <div class="mock-stat">
                 <span class="mock-stat-val">12ms</span>
@@ -818,57 +1147,120 @@
     </div>
   </div>
 
-  <!-- PLATFORMS -->
+  <!-- ── PLATFORMS ────────────────────────────────────────────── -->
   <section class="platforms-section" id="platforms">
     <p class="section-label">Platforms</p>
     <h2 class="section-title" style="margin-bottom:40px">Everywhere you need it.</h2>
     <div class="platforms-grid">
+
       <div class="platform-card">
-        <span class="platform-icon">🍎</span>
+        <span class="platform-icon">
+          <svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="10" y="4" width="16" height="28" rx="3" />
+            <line x1="10" y1="9" x2="26" y2="9" />
+            <line x1="10" y1="27" x2="26" y2="27" />
+            <circle cx="18" cy="29.5" r="0.8" fill="currentColor" />
+          </svg>
+        </span>
         <div class="platform-name">iOS</div>
-        <p class="platform-desc">Native iPhone and iPad app with home screen widget, Pro diagnostics, SignalFinder, Walk Test, and Smart Alerts.</p>
+        <p class="platform-desc">Native iPhone and iPad app with Live Activity, Siri Shortcuts, Pro diagnostics, Timeline, Baselines, and PDF Evidence Pack export.</p>
         <span class="platform-badge">Available Now</span>
       </div>
-      <div class="platform-card coming-soon">
-        <span class="platform-icon">🤖</span>
+
+      <div class="platform-card">
+        <span class="platform-icon">
+          <svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="8" y="4" width="20" height="28" rx="3" />
+            <line x1="14" y1="29" x2="22" y2="29" />
+            <circle cx="13" cy="10" r="0.8" fill="currentColor" />
+            <circle cx="23" cy="10" r="0.8" fill="currentColor" />
+          </svg>
+        </span>
         <div class="platform-name">Android</div>
-        <p class="platform-desc">Android app with home screen widget, WiFi and cellular detection, Pro features, and connection type display.</p>
-        <span class="platform-badge soon">Coming Soon</span>
+        <p class="platform-desc">Native Android app with home screen widget, Pro diagnostics, Timeline, Baselines, and PDF Evidence Pack export. Same features as iOS.</p>
+        <span class="platform-badge">Available Now</span>
       </div>
+
       <div class="platform-card coming-soon">
-        <span class="platform-icon">🪟</span>
+        <span class="platform-icon">
+          <svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="8" width="28" height="18" rx="2" />
+            <line x1="12" y1="30" x2="24" y2="30" />
+            <line x1="18" y1="26" x2="18" y2="30" />
+          </svg>
+        </span>
         <div class="platform-name">Windows</div>
-        <p class="platform-desc">Full desktop app with system tray icon, 24-hour history, desktop notifications, and launch on startup.</p>
+        <p class="platform-desc">Desktop companion app with system tray icon, 24-hour history, desktop notifications, and launch on startup.</p>
         <span class="platform-badge soon">Coming Soon</span>
       </div>
+
     </div>
   </section>
 
-  <!-- PRICING -->
+  <!-- ── PRICING ──────────────────────────────────────────────── -->
   <div class="pricing-section" id="pricing">
     <div class="pricing-inner">
       <p class="section-label" style="text-align:center">Pricing</p>
-      <h2 class="section-title" style="text-align:center;margin:0 auto 40px">One price.<br>All platforms.</h2>
-      <div class="price-card">
-        <div class="price-amount"><sup>$</sup>0.99</div>
-        <p class="price-period">per month · cancel anytime</p>
+      <h2 class="section-title" style="text-align:center;margin:0 auto 40px">Three ways in.<br>All Pro features included.</h2>
+
+      <div class="pricing-tiers">
+        <div class="price-tier">
+          <div class="price-tier-name">Monthly</div>
+          <div class="price-tier-amount"><sup>$</sup>0.99</div>
+          <div class="price-tier-period">per month</div>
+        </div>
+        <div class="price-tier">
+          <div class="price-tier-name">Annual</div>
+          <div class="price-tier-amount"><sup>$</sup>9.99</div>
+          <div class="price-tier-period">per year · save 16%</div>
+        </div>
+        <div class="price-tier highlight">
+          <div class="price-tier-name">Lifetime</div>
+          <div class="price-tier-amount"><sup>$</sup>19.99</div>
+          <div class="price-tier-period">one-time payment</div>
+        </div>
+      </div>
+
+      <div class="price-card-full">
+        <div class="price-features-title">Every tier includes every Pro feature</div>
         <ul class="price-features">
           <li>Real-time ping monitoring</li>
-          <li>Green / yellow / red status indicator</li>
-          <li>24-hour history with min/max/avg stats</li>
-          <li>Smart Alerts for outages and slowdowns</li>
-          <li>Home screen widget (mobile)</li>
-          <li>iOS included · Android coming soon</li>
-          <li>Pro diagnostics: Compare, Profiles, Walk Test</li>
+          <li>Plain-English Diagnosis</li>
+          <li>Network Baselines</li>
+          <li>Unified Timeline &amp; Trends</li>
+          <li>Smart Alerts</li>
+          <li>One-tap Diagnose</li>
+          <li>ISP Evidence Pack (PDF)</li>
+          <li>Quality Score</li>
+          <li>Connection Sentinel</li>
+          <li>SignalFinder</li>
+          <li>Walk Test</li>
+          <li>Compare (3 servers)</li>
+          <li>Named Profiles</li>
+          <li>Before / After annotations</li>
+          <li>Webhooks</li>
+          <li>Quick Speed Test</li>
         </ul>
-        <a href="https://apps.apple.com/app/id6760624783" class="btn btn-primary" style="width:100%;justify-content:center;font-size:14px;">
-          Get TrueSignal
-        </a>
+
+        <div class="download-group" style="margin-top:20px;margin-bottom:0;">
+          <a href="https://apps.apple.com/app/id6760624783"
+             class="store-badge"
+             aria-label="Download TrueSignal on the App Store"
+             target="_blank" rel="noopener">
+            <img src="/assets/app-store-badge.svg" alt="Download on the App Store" />
+          </a>
+          <a href="https://play.google.com/store/apps/details?id=com.rackops.truesignal"
+             class="store-badge"
+             aria-label="Get TrueSignal on Google Play"
+             target="_blank" rel="noopener">
+            <img src="/assets/google-play-badge.png" alt="Get it on Google Play" />
+          </a>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- BUILT BY -->
+  <!-- ── BUILT BY ─────────────────────────────────────────────── -->
   <div class="built-by">
     <div class="built-by-inner">
       <div class="built-by-avatar">D</div>
@@ -876,13 +1268,13 @@
         <span class="built-by-label">Built by a human</span>
         <div class="built-by-name">Dave Schwind</div>
         <p class="built-by-bio">
-          Independent developer and technologist. TrueSignal was built out of frustration with misleading signal bars — I couldn't find a tool to tell me the truth, so I built it.
+          Independent developer and technologist. TrueSignal was built out of frustration with misleading signal bars. I couldn't find a tool that would tell me the truth, so I built it.
         </p>
       </div>
     </div>
   </div>
 
-  <!-- FOOTER -->
+  <!-- ── FOOTER ───────────────────────────────────────────────── -->
   <footer>
     <div class="footer-logo">
       <span class="nav-dot"></span>
@@ -890,10 +1282,11 @@
     </div>
     <ul class="footer-links">
       <li><a href="#features">Features</a></li>
+      <li><a href="#evidence">Evidence Pack</a></li>
       <li><a href="#platforms">Platforms</a></li>
       <li><a href="#pricing">Pricing</a></li>
-      <li><a href="https://truesignal.live/privacy" target="_blank">Privacy Policy</a></li>
-      <li><a href="https://www.apple.com/legal/internet-services/itunes/dev/stla/" target="_blank">Terms of Use</a></li>
+      <li><a href="https://truesignal.live/privacy" target="_blank" rel="noopener">Privacy Policy</a></li>
+      <li><a href="https://www.apple.com/legal/internet-services/itunes/dev/stla/" target="_blank" rel="noopener">Terms of Use</a></li>
     </ul>
     <p class="footer-copy">© 2026 TrueSignal. Your bars lie.</p>
   </footer>
