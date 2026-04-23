@@ -193,42 +193,46 @@
     }
 
     .hero-dot {
-      width: 180px; height: 180px; border-radius: 50%;
-      background: var(--green); opacity: 0.82; position: relative; overflow: hidden;
-      box-shadow: 0 0 60px rgba(46,204,113,0.4), 0 0 120px rgba(46,204,113,0.15), inset 0 0 40px rgba(0,0,0,0.2);
-      animation: breathe 3s ease-in-out infinite;
+      width: 200px; height: 200px; border-radius: 50%;
+      display: block; position: relative; overflow: hidden;
+      background: url('/assets/towerball_green.jpg') center/cover no-repeat;
+      box-shadow:
+        0 0 60px rgba(46,204,113,0.45),
+        0 0 120px rgba(46,204,113,0.2),
+        0 10px 40px rgba(0,0,0,0.3);
+      animation: breathe 2.4s ease-in-out infinite;
     }
 
     @keyframes breathe {
-      0%, 100% { box-shadow: 0 0 60px rgba(46,204,113,0.4), 0 0 120px rgba(46,204,113,0.15); }
-      50% { box-shadow: 0 0 80px rgba(46,204,113,0.6), 0 0 160px rgba(46,204,113,0.25); }
-    }
-
-    .hero-dot::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 55%;
-      background: rgba(255,255,255,0.18);
-      border-bottom-left-radius: 90px; border-bottom-right-radius: 90px;
-    }
-
-    .hero-dot::after {
-      content: ''; position: absolute; top: 18px; left: 26px;
-      width: 60px; height: 34px; background: rgba(255,255,255,0.28);
-      border-radius: 24px; transform: rotate(-20deg);
+      0%, 100% {
+        transform: scale(1);
+        box-shadow:
+          0 0 60px rgba(46,204,113,0.45),
+          0 0 120px rgba(46,204,113,0.2),
+          0 10px 40px rgba(0,0,0,0.3);
+      }
+      50% {
+        transform: scale(1.04);
+        box-shadow:
+          0 0 90px rgba(46,204,113,0.65),
+          0 0 180px rgba(46,204,113,0.3),
+          0 10px 40px rgba(0,0,0,0.3);
+      }
     }
 
     .dot-ring {
       position: absolute; border-radius: 50%;
-      border: 1px solid rgba(46,204,113,0.2);
-      animation: ring-expand 3s ease-out infinite;
+      border: 1px solid rgba(46,204,113,0.25);
+      animation: ring-expand 2.8s ease-out infinite;
     }
 
-    .dot-ring:nth-child(1) { width: 220px; height: 220px; top: -20px; left: -20px; animation-delay: 0s; }
-    .dot-ring:nth-child(2) { width: 280px; height: 280px; top: -50px; left: -50px; animation-delay: 1s; }
-    .dot-ring:nth-child(3) { width: 340px; height: 340px; top: -80px; left: -80px; animation-delay: 2s; }
+    .dot-ring:nth-child(1) { width: 240px; height: 240px; top: -20px; left: -20px; animation-delay: 0s; }
+    .dot-ring:nth-child(2) { width: 310px; height: 310px; top: -55px; left: -55px; animation-delay: 0.9s; }
+    .dot-ring:nth-child(3) { width: 380px; height: 380px; top: -90px; left: -90px; animation-delay: 1.8s; }
 
     @keyframes ring-expand {
-      0% { opacity: 0.6; transform: scale(0.95); }
-      100% { opacity: 0; transform: scale(1.05); }
+      0% { opacity: 0.7; transform: scale(0.92); }
+      100% { opacity: 0; transform: scale(1.08); }
     }
 
     .status-badge {
@@ -523,20 +527,11 @@
     .mock-body { padding: 24px 20px 28px; display: flex; flex-direction: column; align-items: center; }
 
     .mock-dot {
-      width: 90px; height: 90px; border-radius: 50%; background: var(--green); opacity: 0.85;
+      width: 100px; height: 100px; border-radius: 50%;
+      background: url('/assets/towerball_green.jpg') center/cover no-repeat;
       position: relative; overflow: hidden; margin-bottom: 14px;
-      box-shadow: 0 0 30px rgba(46,204,113,0.3); animation: breathe 3s ease-in-out infinite;
-    }
-
-    .mock-dot::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 55%;
-      background: rgba(255,255,255,0.18); border-bottom-left-radius: 45px; border-bottom-right-radius: 45px;
-    }
-
-    .mock-dot::after {
-      content: ''; position: absolute; top: 10px; left: 14px;
-      width: 30px; height: 18px; background: rgba(255,255,255,0.28);
-      border-radius: 12px; transform: rotate(-20deg);
+      box-shadow: 0 0 30px rgba(46,204,113,0.35), 0 6px 20px rgba(0,0,0,0.3);
+      animation: breathe 2.4s ease-in-out infinite;
     }
 
     .mock-status { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; color: var(--green); margin-bottom: 4px; }
