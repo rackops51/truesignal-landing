@@ -360,65 +360,72 @@
       box-shadow: 0 0 8px var(--green-glow);
     }
 
-    .evidence-mockup {
-      background: #ffffff;
+    .evidence-pdf-image-wrap {
+      max-width: 420px; margin: 0 auto;
+      position: relative;
+    }
+
+    .evidence-pdf-image {
+      width: 100%; height: auto; display: block;
       border-radius: 8px;
-      padding: 36px 32px;
-      color: #1a1a2e;
-      font-family: 'DM Mono', monospace; font-size: 10px; line-height: 1.6;
-      box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.06);
-      aspect-ratio: 8.5 / 11; max-width: 420px; margin: 0 auto;
-      position: relative; overflow: hidden;
+      box-shadow:
+        0 40px 80px rgba(0,0,0,0.5),
+        0 0 0 1px rgba(255,255,255,0.06);
+      background: #ffffff;
     }
 
-    .evidence-letterhead {
-      border-bottom: 2px solid var(--green); padding-bottom: 12px; margin-bottom: 18px;
+    /* ── SEE IT IN ACTION ─────────────────────────────────────────── */
+    .action-section {
+      position: relative; z-index: 1;
+      background: var(--bg);
+      border-top: 1px solid rgba(255,255,255,0.04);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
     }
-    .evidence-brand {
-      display: flex; align-items: baseline; justify-content: space-between;
-    }
-    .evidence-brand-name {
-      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 22px;
-      color: var(--green); letter-spacing: 0.01em;
-    }
-    .evidence-brand-url { font-size: 9px; color: #888; }
-    .evidence-tagline { font-size: 10px; color: #666; font-style: italic; margin-top: 4px; }
-    .evidence-doc-title {
-      margin-top: 12px; font-size: 14px; font-weight: 700; color: #1a1a2e;
+    .action-inner { max-width: 1100px; margin: 0 auto; padding: 100px 24px; }
+
+    .action-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+      margin-bottom: 32px;
     }
 
-    .evidence-meta {
-      background: #f5f5f8; border-radius: 4px; padding: 10px 14px;
-      font-size: 9px; margin-bottom: 16px;
-    }
-    .evidence-meta-row { display: flex; gap: 8px; padding: 2px 0; }
-    .evidence-meta-key { color: #666; width: 100px; flex-shrink: 0; }
-    .evidence-meta-val { color: #1a1a2e; font-weight: 500; }
-
-    .evidence-h2 {
-      font-size: 11px; font-weight: 600; color: #1a1a2e; text-transform: uppercase;
-      letter-spacing: 0.1em; border-bottom: 1px solid #e0e0ea; padding-bottom: 4px;
-      margin-bottom: 10px; margin-top: 14px;
+    .action-shot {
+      margin: 0; display: flex; flex-direction: column; gap: 14px;
     }
 
-    .evidence-summary {
-      background: #f0faf3; border-left: 3px solid var(--green);
-      padding: 10px 14px; font-size: 10px; color: #1a3a22;
-      border-radius: 2px; line-height: 1.6;
+    .action-shot img {
+      width: 100%; height: auto; display: block;
+      border-radius: 24px;
+      box-shadow:
+        0 20px 40px rgba(0,0,0,0.4),
+        0 0 0 1px rgba(255,255,255,0.04);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .evidence-stats {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 10px;
+    .action-shot:hover img {
+      transform: translateY(-4px);
+      box-shadow:
+        0 30px 60px rgba(0,0,0,0.5),
+        0 0 0 1px rgba(46,204,113,0.15);
     }
-    .evidence-stat {
-      background: #f5f5f8; border-radius: 4px; padding: 10px 4px; text-align: center;
+
+    .action-shot figcaption {
+      display: flex; flex-direction: column; gap: 4px;
+      padding: 0 6px;
     }
-    .evidence-stat-val { font-size: 18px; font-weight: 700; line-height: 1; }
-    .evidence-stat-val.red { color: #c0392b; }
-    .evidence-stat-val.orange { color: #c46419; }
-    .evidence-stat-val.green { color: #27ae60; }
-    .evidence-stat-val.neutral { color: #1a1a2e; }
-    .evidence-stat-label { font-size: 7px; color: #666; letter-spacing: 0.05em; margin-top: 3px; }
+
+    .action-shot-title {
+      font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700;
+      color: var(--white);
+    }
+
+    .action-shot-desc {
+      font-size: 12px; color: var(--muted); line-height: 1.5;
+    }
+
+    .action-more-note {
+      text-align: center; font-size: 13px; color: var(--muted);
+      margin-top: 8px;
+    }
 
     /* ── CHORNOBYL "IN THE WILD" ─────────────────────────────────── */
     .wild-section {
@@ -759,15 +766,20 @@
     }
 
     /* ── RESPONSIVE ──────────────────────────────────────────────── */
+    @media (max-width: 968px) {
+      .action-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    }
+
     @media (max-width: 768px) {
       nav { padding: 16px 20px; }
       .nav-links { display: none; }
       .evidence-inner { grid-template-columns: 1fr; gap: 48px; }
-      .evidence-mockup { max-width: 340px; }
+      .evidence-pdf-image-wrap { max-width: 340px; }
       .demo-inner { grid-template-columns: 1fr; gap: 48px; }
       .platforms-grid { grid-template-columns: 1fr; }
       .pricing-tiers { grid-template-columns: 1fr; }
       .price-features { grid-template-columns: 1fr; }
+      .action-grid { grid-template-columns: 1fr; gap: 32px; max-width: 360px; margin-left: auto; margin-right: auto; }
       .stats-strip { flex-wrap: wrap; }
       .stat-item { min-width: 50%; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); }
       footer { flex-direction: column; gap: 20px; text-align: center; }
@@ -799,6 +811,7 @@
     <ul class="nav-links">
       <li><a href="#features">Features</a></li>
       <li><a href="#evidence">Evidence Pack</a></li>
+      <li><a href="#screenshots">Screenshots</a></li>
       <li><a href="#platforms">Platforms</a></li>
       <li><a href="#pricing">Pricing</a></li>
       <li><a href="https://truesignal.live/privacy" target="_blank" rel="noopener">Privacy</a></li>
@@ -1003,57 +1016,77 @@
         </p>
       </div>
 
-      <!-- Evidence PDF mockup -->
-      <div class="evidence-mockup">
-        <div class="evidence-letterhead">
-          <div class="evidence-brand">
-            <span class="evidence-brand-name">TrueSignal</span>
-            <span class="evidence-brand-url">truesignal.live</span>
-          </div>
-          <div class="evidence-tagline">Your bars lie. This doesn't.</div>
-          <div class="evidence-doc-title">Connection Quality Report</div>
-        </div>
-
-        <div class="evidence-meta">
-          <div class="evidence-meta-row">
-            <span class="evidence-meta-key">Generated</span>
-            <span class="evidence-meta-val">Apr 22, 2026 3:42 PM</span>
-          </div>
-          <div class="evidence-meta-row">
-            <span class="evidence-meta-key">Monitored</span>
-            <span class="evidence-meta-val">google.com/generate_204</span>
-          </div>
-          <div class="evidence-meta-row">
-            <span class="evidence-meta-key">Duration</span>
-            <span class="evidence-meta-val">1.8 hours</span>
-          </div>
-        </div>
-
-        <div class="evidence-h2">Executive Summary</div>
-        <div class="evidence-summary">
-          Over the 1.8-hour monitored period, TrueSignal recorded 6 complete connection outages totaling 2m 2s of downtime and 1 sustained slowdown totaling 8s.
-        </div>
-
-        <div class="evidence-h2">Statistics</div>
-        <div class="evidence-stats">
-          <div class="evidence-stat">
-            <div class="evidence-stat-val red">6</div>
-            <div class="evidence-stat-label">Outages</div>
-          </div>
-          <div class="evidence-stat">
-            <div class="evidence-stat-val orange">1</div>
-            <div class="evidence-stat-label">Brownouts</div>
-          </div>
-          <div class="evidence-stat">
-            <div class="evidence-stat-val green">6</div>
-            <div class="evidence-stat-label">Recovered</div>
-          </div>
-          <div class="evidence-stat">
-            <div class="evidence-stat-val neutral">30</div>
-            <div class="evidence-stat-label">Events</div>
-          </div>
-        </div>
+      <!-- Evidence PDF - real screenshot -->
+      <div class="evidence-pdf-image-wrap">
+        <img
+          src="/assets/screenshots/IMG_3905.PNG"
+          alt="Sample TrueSignal PDF Evidence Pack showing connection outage report with executive summary and event timeline"
+          class="evidence-pdf-image"
+          loading="lazy"
+        />
       </div>
+    </div>
+  </section>
+
+  <!-- ── SEE IT IN ACTION ─────────────────────────────────────── -->
+  <section class="action-section" id="screenshots">
+    <div class="action-inner">
+      <p class="section-label" style="text-align:center">See it in action</p>
+      <h2 class="section-title" style="text-align:center;margin:0 auto 48px;">Every feature. Actual screens.</h2>
+
+      <div class="action-grid">
+        <figure class="action-shot">
+          <img
+            src="/assets/screenshots/IMG_3888.PNG"
+            alt="TrueSignal Monitor tab showing Connected status, plain-English diagnosis, and connection quality stats"
+            loading="lazy"
+          />
+          <figcaption>
+            <span class="action-shot-title">Monitor</span>
+            <span class="action-shot-desc">Live status, diagnosis, and stats at a glance.</span>
+          </figcaption>
+        </figure>
+
+        <figure class="action-shot">
+          <img
+            src="/assets/screenshots/IMG_3898.PNG"
+            alt="TrueSignal Timeline showing day-grouped events including outages and recoveries"
+            loading="lazy"
+          />
+          <figcaption>
+            <span class="action-shot-title">Timeline</span>
+            <span class="action-shot-desc">Every event in one chronological feed.</span>
+          </figcaption>
+        </figure>
+
+        <figure class="action-shot">
+          <img
+            src="/assets/screenshots/IMG_3894.PNG"
+            alt="TrueSignal Diagnose screen showing six connection checks all passing"
+            loading="lazy"
+          />
+          <figcaption>
+            <span class="action-shot-title">Diagnose</span>
+            <span class="action-shot-desc">Six checks, 5 seconds, plain verdict.</span>
+          </figcaption>
+        </figure>
+
+        <figure class="action-shot">
+          <img
+            src="/assets/screenshots/IMG_3895.PNG"
+            alt="TrueSignal Baselines showing established WiFi baseline with typical and P95 latency"
+            loading="lazy"
+          />
+          <figcaption>
+            <span class="action-shot-title">Baselines</span>
+            <span class="action-shot-desc">Learn what's normal. Know what's not.</span>
+          </figcaption>
+        </figure>
+      </div>
+
+      <p class="action-more-note">
+        Plus Quality Score, Smart Alerts, Connection Sentinel, Walk Test, SignalFinder, and more.
+      </p>
     </div>
   </section>
 
