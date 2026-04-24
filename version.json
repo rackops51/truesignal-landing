@@ -1,0 +1,12 @@
+{
+  "ios": {
+    "latest": "2.8.1",
+    "minRequired": "2.7.0",
+    "storeUrl": "https://apps.apple.com/app/truesignal/id6760624783"
+  },
+  "android": {
+    "latest": "2.8.1",
+    "minRequired": "2.7.0",
+    "storeUrl": "https://play.google.com/store/apps/details?id=com.rackops.truesignal"
+  }
+}
