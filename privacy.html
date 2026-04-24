@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Privacy Policy — TrueSignal</title>
-  <meta name="description" content="TrueSignal privacy policy. We collect no personal data. Your connection history stays on your device." />
+  <meta name="description" content="TrueSignal's privacy policy. No accounts, no analytics, no tracking. All data stays on your device." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
@@ -19,38 +19,48 @@
       --white: #ffffff;
       --muted: #aaaacc;
       --text: #ebebf8;
-      --border: rgba(255,255,255,0.06);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
+
     body {
       background: var(--bg);
-      color: var(--white);
+      color: var(--text);
       font-family: 'DM Mono', monospace;
-      overflow-x: hidden;
+      line-height: 1.7;
+      font-size: 15px;
     }
 
     body::before {
       content: '';
-      position: fixed; inset: 0;
+      position: fixed;
+      inset: 0;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none; z-index: 0; opacity: 0.4;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
     }
 
     body::after {
       content: '';
-      position: fixed; inset: 0;
+      position: fixed;
+      inset: 0;
       background-image:
         linear-gradient(rgba(46,204,113,0.03) 1px, transparent 1px),
         linear-gradient(90deg, rgba(46,204,113,0.03) 1px, transparent 1px);
       background-size: 40px 40px;
-      pointer-events: none; z-index: 0;
+      pointer-events: none;
+      z-index: 0;
     }
 
     nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       padding: 20px 48px;
       background: rgba(13,13,26,0.85);
       backdrop-filter: blur(12px);
@@ -58,14 +68,22 @@
     }
 
     .nav-logo {
-      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 20px;
-      color: var(--white); display: flex; align-items: center; gap: 10px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 20px;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      gap: 10px;
       text-decoration: none;
     }
 
     .nav-dot {
-      width: 12px; height: 12px; border-radius: 50%;
-      background: var(--green); box-shadow: 0 0 8px var(--green-glow);
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green-glow);
       animation: pulse-dot 2s ease-in-out infinite;
     }
 
@@ -74,165 +92,189 @@
       50% { box-shadow: 0 0 16px var(--green), 0 0 32px var(--green-glow); }
     }
 
-    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
     .nav-links a {
-      font-size: 12px; color: var(--muted); text-decoration: none;
-      letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--green); }
-
-    @keyframes fade-up {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: color 0.2s;
     }
 
-    .page-hero {
-      position: relative; z-index: 1;
-      padding: 160px 24px 60px;
-      text-align: center; max-width: 700px; margin: 0 auto;
+    .nav-links a:hover {
+      color: var(--green);
     }
 
-    .page-eyebrow {
-      font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--green); margin-bottom: 20px;
-      opacity: 0; animation: fade-up 0.6s ease forwards 0.2s;
+    main {
+      position: relative;
+      z-index: 1;
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 140px 32px 80px;
     }
 
-    .page-title {
-      font-family: 'Syne', sans-serif; font-weight: 800;
-      font-size: clamp(32px, 5vw, 56px);
-      line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 16px;
-      opacity: 0; animation: fade-up 0.6s ease forwards 0.4s;
+    .header {
+      margin-bottom: 48px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid rgba(46,204,113,0.12);
     }
 
-    .page-subtitle {
-      font-size: 14px; color: var(--muted); line-height: 1.8;
-      opacity: 0; animation: fade-up 0.6s ease forwards 0.6s;
+    .section-label {
+      color: var(--green);
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
     }
 
-    .content {
-      position: relative; z-index: 1;
-      max-width: 760px; margin: 0 auto;
-      padding: 0 24px 120px;
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(36px, 5vw, 56px);
+      color: var(--white);
+      letter-spacing: -1px;
+      line-height: 1.1;
+      margin-bottom: 16px;
     }
 
     .updated {
-      font-size: 11px; color: #444460;
-      text-align: center; margin-bottom: 48px;
-      letter-spacing: 0.05em;
+      color: var(--muted);
+      font-size: 13px;
+      letter-spacing: 1px;
     }
 
-    /* Section */
-    .section { margin-bottom: 48px; }
-
-    .section-label {
-      font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--green); margin-bottom: 12px;
-    }
-
-    .section-title {
-      font-family: 'Syne', sans-serif; font-weight: 700;
-      font-size: 20px; color: var(--white); margin-bottom: 16px;
-    }
-
-    .section-body {
-      font-size: 13px; color: var(--muted); line-height: 1.9;
-    }
-
-    .section-body strong { color: var(--text); font-weight: 500; }
-
-    .section-body a {
-      color: var(--green); text-decoration: none;
-    }
-    .section-body a:hover { text-decoration: underline; }
-
-    /* Highlight box */
-    .highlight-box {
-      background: rgba(46,204,113,0.06);
+    .summary-card {
+      background: linear-gradient(135deg, rgba(46,204,113,0.08), rgba(46,204,113,0.02));
       border: 1px solid rgba(46,204,113,0.2);
-      border-radius: 12px; padding: 20px 24px;
-      margin: 20px 0;
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin: 40px 0;
     }
 
-    .highlight-box p {
-      font-size: 13px; color: var(--text); line-height: 1.8;
+    .summary-card h2 {
+      font-family: 'Syne', sans-serif;
+      color: var(--green);
+      font-size: 18px;
+      margin-bottom: 16px;
+      letter-spacing: 0.5px;
     }
 
-    /* Warning box — for third-party section */
-    .warning-box {
-      background: rgba(241,196,15,0.06);
-      border: 1px solid rgba(241,196,15,0.2);
-      border-radius: 12px; padding: 20px 24px;
-      margin: 20px 0;
+    .summary-card ul {
+      list-style: none;
     }
 
-    .warning-box-title {
-      font-size: 12px; color: var(--yellow); font-weight: 700;
-      letter-spacing: 0.05em; margin-bottom: 10px;
+    .summary-card li {
+      padding: 6px 0 6px 24px;
+      position: relative;
+      color: var(--text);
     }
 
-    .warning-box p {
-      font-size: 13px; color: var(--muted); line-height: 1.8;
+    .summary-card li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--green);
+      font-weight: bold;
     }
 
-    /* Tool table */
-    .tool-table { width: 100%; margin: 20px 0; border-collapse: collapse; }
-
-    .tool-table th {
-      font-size: 10px; color: var(--green); letter-spacing: 0.15em;
-      text-transform: uppercase; text-align: left;
-      padding: 8px 12px; border-bottom: 1px solid var(--border);
+    h2 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 24px;
+      color: var(--white);
+      margin: 48px 0 16px;
+      letter-spacing: -0.3px;
     }
 
-    .tool-table td {
-      font-size: 12px; color: var(--muted); line-height: 1.7;
-      padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.03);
-      vertical-align: top;
+    h3 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--green);
+      margin: 24px 0 10px;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
     }
 
-    .tool-table tr:last-child td { border-bottom: none; }
-    .tool-table td:first-child { color: var(--text); font-weight: 500; white-space: nowrap; }
-    .tool-table td a { color: var(--green); text-decoration: none; }
-    .tool-table td a:hover { text-decoration: underline; }
-
-    /* Divider */
-    .divider {
-      border: none; border-top: 1px solid var(--border);
-      margin: 48px 0;
+    p {
+      margin-bottom: 16px;
+      color: var(--text);
     }
 
-    /* Footer */
+    ul, ol {
+      margin: 0 0 16px 24px;
+      color: var(--text);
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    strong {
+      color: var(--white);
+      font-weight: 500;
+    }
+
+    a {
+      color: var(--green);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(46,204,113,0.4);
+      transition: border-color 0.2s;
+    }
+
+    a:hover {
+      border-bottom-color: var(--green);
+    }
+
+    .contact-block {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      padding: 24px;
+      margin: 32px 0;
+    }
+
+    .contact-block strong {
+      display: inline-block;
+      min-width: 80px;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
     footer {
-      position: relative; z-index: 1;
-      border-top: 1px solid var(--border);
-      padding: 48px 24px;
-      display: flex; flex-direction: column;
-      align-items: center; gap: 20px;
+      border-top: 1px solid rgba(46,204,113,0.08);
+      padding: 40px 32px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 80px;
+      position: relative;
+      z-index: 1;
     }
 
-    .footer-logo {
-      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 18px;
-      display: flex; align-items: center; gap: 10px;
+    footer a {
+      border: none;
+      color: var(--muted);
+      margin: 0 12px;
     }
 
-    .footer-links {
-      display: flex; gap: 24px; list-style: none;
-      flex-wrap: wrap; justify-content: center;
+    footer a:hover {
+      color: var(--green);
     }
 
-    .footer-links a {
-      font-size: 12px; color: var(--muted); text-decoration: none;
-      letter-spacing: 0.05em; transition: color 0.2s;
-    }
-    .footer-links a:hover { color: var(--green); }
-    .footer-copy { font-size: 11px; color: rgba(170,170,204,0.4); letter-spacing: 0.05em; }
-
-    /* Mobile */
     @media (max-width: 640px) {
       nav { padding: 16px 20px; }
-      .nav-links { display: none; }
-      .tool-table { font-size: 11px; }
-      .tool-table th, .tool-table td { padding: 8px; }
+      .nav-links { gap: 18px; }
+      .nav-links a { font-size: 11px; }
+      main { padding: 120px 20px 60px; }
+      .summary-card { padding: 20px; }
+      h2 { font-size: 20px; margin: 36px 0 12px; }
     }
   </style>
 </head>
@@ -244,217 +286,138 @@
       TrueSignal
     </a>
     <ul class="nav-links">
-      <li><a href="/">Home</a></li>
       <li><a href="/#features">Features</a></li>
-      <li><a href="/how-it-works">How it Works</a></li>
-      <li><a href="/privacy">Privacy</a></li>
+      <li><a href="/#pricing">Pricing</a></li>
+      <li><a href="/privacy/">Privacy</a></li>
     </ul>
   </nav>
 
-  <div class="page-hero">
-    <p class="page-eyebrow">Transparency first</p>
-    <h1 class="page-title">Privacy Policy</h1>
-    <p class="page-subtitle">
-      TrueSignal is built on a simple principle — your data belongs to you.
-      Here's exactly what we collect, what we don't, and what happens when you
-      use optional third-party tools.
-    </p>
-  </div>
+  <main>
 
-  <div class="content">
-    <p class="updated">Last updated: April 2026</p>
-
-    <!-- THE SHORT VERSION -->
-    <div class="section">
-      <p class="section-label">The short version</p>
-      <h2 class="section-title">We collect nothing. Your data stays on your device.</h2>
-      <div class="highlight-box">
-        <p>
-          TrueSignal does not collect, store, or transmit any personal information.
-          No account is required. No analytics SDKs are included. No ad tracking exists.
-          Your connection history never leaves your device.
-          The only network traffic TrueSignal creates is the ping to the server you configure.
-        </p>
-      </div>
+    <div class="header">
+      <p class="section-label">Privacy Policy</p>
+      <h1>Privacy Policy</h1>
+      <p class="updated">Last updated: April 24, 2026</p>
     </div>
 
-    <hr class="divider" />
+    <p>TrueSignal ("we," "our," or "the app") is a connection-quality monitoring application for iOS and Android. This Privacy Policy explains what information TrueSignal does and does not handle, how it is stored, how long it is kept, and how you can have any stored data deleted.</p>
 
-    <!-- WHAT WE COLLECT -->
-    <div class="section">
-      <p class="section-label">Data collection</p>
-      <h2 class="section-title">What TrueSignal collects</h2>
-      <p class="section-body">
-        TrueSignal collects <strong>nothing</strong>. Specifically:
-      </p>
-      <br>
-      <p class="section-body">
-        <strong>No personal information</strong> — no name, email, phone number, or account of any kind is ever requested or stored.<br><br>
-        <strong>No location data</strong> — TrueSignal does not request or use GPS, location services, or any location permission.<br><br>
-        <strong>No analytics</strong> — there are no analytics SDKs, crash reporters, or usage tracking frameworks included in the app.<br><br>
-        <strong>No advertising</strong> — there is no ad network, no ad ID tracking, and no behavioral profiling of any kind.<br><br>
-        <strong>No connection history uploaded</strong> — your ping history, event log, and network log are stored locally on your device only. They are never transmitted to TrueSignal or any third party by the app itself.
-      </p>
+    <div class="summary-card">
+      <h2>At a glance</h2>
+      <ul>
+        <li>TrueSignal does not require an account</li>
+        <li>TrueSignal does not collect personal information</li>
+        <li>TrueSignal does not use analytics, advertising, or tracking SDKs</li>
+        <li>TrueSignal does not transmit your usage data to us or any third party</li>
+        <li>All monitoring data is stored only on your device</li>
+        <li>You can delete all TrueSignal data at any time (see section 6)</li>
+      </ul>
     </div>
 
-    <hr class="divider" />
+    <h2>1. Information TrueSignal does not collect</h2>
+    <p>TrueSignal does not collect, transmit, or store on any server:</p>
+    <ul>
+      <li>Your name, email, phone number, or address</li>
+      <li>Your contacts, photos, calendar, or files</li>
+      <li>Your device identifiers (advertising ID, IMEI, MAC address, etc.)</li>
+      <li>Your precise or approximate location</li>
+      <li>Your browsing or app usage history</li>
+      <li>Any other personal or sensitive user data</li>
+    </ul>
 
-    <!-- NETWORK TRAFFIC -->
-    <div class="section">
-      <p class="section-label">Network activity</p>
-      <h2 class="section-title">What network traffic TrueSignal creates</h2>
-      <p class="section-body">
-        TrueSignal creates exactly one type of outbound network request: a periodic ping
-        to the server you configure in the app settings. By default this is
-        <strong>https://www.google.com/generate_204</strong>, but you can change it to
-        any server you choose — including a private server on your own network.
-        <br><br>
-        TrueSignal does not contact any server other than the one you explicitly configure.
-        There is no telemetry, no update check, no analytics endpoint, and no background
-        data collection.
-      </p>
+    <h2>2. What the developer can see</h2>
+    <p>TrueSignal does not operate a user-facing server, so we do not receive your usage data. The only information we have about app usage comes from the standard aggregate reports provided by Apple's App Store Connect and Google Play Console:</p>
+    <ul>
+      <li>Approximate install, reinstall, and uninstall counts</li>
+      <li>Country or region of users, in aggregate</li>
+      <li>Aggregate crash and performance data, if reported by the operating system</li>
+      <li>Aggregate subscription and purchase counts</li>
+    </ul>
+    <p>These reports are <strong>aggregate and anonymous</strong>. They do not identify you personally, do not include your device identifier, and do not include any data about what servers you ping, your latency history, or how you use the app. We cannot link any store-level statistic back to an individual user, and we have no backdoor or alternate mechanism for collecting information from your device.</p>
+
+    <h2>3. Information stored locally on your device</h2>
+    <p>TrueSignal stores the following data <strong>only on your device</strong>, in the app's local storage. This data is never transmitted to us:</p>
+    <ul>
+      <li><strong>Configured ping target URL(s)</strong> — the server or address you choose for connection checks.</li>
+      <li><strong>Latency samples and event history</strong> — the timing results of your connection checks, kept so the app can show you trends and recent events.</li>
+      <li><strong>Annotations and notes</strong> — any labels you add to events or sessions.</li>
+      <li><strong>App preferences</strong> — your selected check interval, alert settings, display options, and similar choices.</li>
+      <li><strong>Purchase / subscription state</strong> — a local indicator of whether your TrueSignal Pro entitlement is active.</li>
+    </ul>
+    <p>This information stays on your device. If you uninstall the app or clear its storage, this data is removed.</p>
+
+    <h2>4. Network traffic generated by TrueSignal</h2>
+    <p>TrueSignal is a connection-measurement tool, so it must send network traffic in order to work. The only network traffic TrueSignal generates is:</p>
+    <ul>
+      <li><strong>Connectivity checks (pings)</strong> to the server you configure in the app. By default, this is a reliable public target; you can change it to a local server, your own server, or any other target you choose. The destination server will see standard network metadata such as your IP address, as with any normal internet request. TrueSignal does not add any personal identifier to these requests.</li>
+      <li><strong>Purchase validation</strong> through Apple's App Store (on iOS) or Google Play Billing (on Android), via RevenueCat as our subscription management provider, when you start, restore, or manage a TrueSignal Pro subscription. These services receive only the information required to process and validate the purchase — they do not receive your ping history, latency data, or app usage.</li>
+    </ul>
+
+    <h2>5. Third-party services</h2>
+    <p>TrueSignal uses the following third-party services, and only for the limited purposes listed below:</p>
+    <ul>
+      <li><strong>Apple App Store / Google Play Billing</strong> — to process subscriptions and in-app purchases. Subject to Apple's and Google's privacy policies.</li>
+      <li><strong>RevenueCat</strong> — to validate and manage subscription entitlements. RevenueCat processes only the anonymized purchase information required to confirm your subscription status. See <a href="https://www.revenuecat.com/privacy" target="_blank" rel="noopener">RevenueCat's privacy policy</a>.</li>
+    </ul>
+    <p>TrueSignal does <strong>not</strong> use Google Analytics, Firebase Analytics, Facebook SDK, Crashlytics, advertising networks, or any other tracking or profiling service.</p>
+
+    <h2>6. Data retention</h2>
+    <p>Because TrueSignal stores data only on your device, you control how long it is kept:</p>
+    <ul>
+      <li><strong>On-device data</strong> (ping targets, latency history, events, annotations, settings) is retained on your device until you delete it, clear the app's storage, or uninstall the app.</li>
+      <li><strong>Subscription records</strong> held by Apple, Google, and RevenueCat are retained by those providers according to their own retention policies, for as long as required to operate the billing relationship and to comply with tax and legal obligations.</li>
+    </ul>
+    <p>We do not operate a server that stores your TrueSignal usage data, so there is no cloud-side retention period to disclose.</p>
+
+    <h2>7. How to delete your data</h2>
+    <p>You can delete all data that TrueSignal stores on your device at any time.</p>
+
+    <h3>To delete on-device TrueSignal data on Android:</h3>
+    <ol>
+      <li>Open <strong>Settings</strong> on your device.</li>
+      <li>Go to <strong>Apps</strong> (or <strong>Apps &amp; notifications</strong>).</li>
+      <li>Find and tap <strong>TrueSignal</strong>.</li>
+      <li>Tap <strong>Storage &amp; cache</strong>.</li>
+      <li>Tap <strong>Clear storage</strong> to remove all app data, or tap <strong>Uninstall</strong> to remove the app entirely.</li>
+    </ol>
+
+    <h3>To delete on-device TrueSignal data on iOS:</h3>
+    <ol>
+      <li>Touch and hold the <strong>TrueSignal</strong> app icon on your Home Screen.</li>
+      <li>Tap <strong>Remove App</strong>, then <strong>Delete App</strong> to uninstall.</li>
+      <li>Uninstalling removes all TrueSignal data stored on the device.</li>
+    </ol>
+
+    <h3>To delete subscription records:</h3>
+    <p>TrueSignal itself does not hold your subscription records — they are held by Apple, Google, and RevenueCat. To request deletion of subscription data held by those providers, please use their account/privacy tools, or contact us at the address below and we will work with RevenueCat to delete any records associated with your purchase identifier.</p>
+
+    <h2>8. Children's privacy</h2>
+    <p>TrueSignal is not directed to children under 13. We do not knowingly collect personal information from children. If you believe a child has provided information to us through the app, please contact us and we will delete any such records.</p>
+
+    <h2>9. Security</h2>
+    <p>Because TrueSignal stores its data locally on your device, that data is protected by your device's own security — screen lock, encryption, and operating-system protections. We recommend using a device passcode and keeping your operating system up to date.</p>
+    <p>We also recommend keeping TrueSignal itself up to date through the App Store or Google Play. App updates include the latest functionality, security improvements, and bug fixes, and the most recent release is always the most secure version of the app.</p>
+
+    <h2>10. Changes to this policy</h2>
+    <p>We may update this Privacy Policy from time to time. When we do, we will revise the "Last updated" date at the top of this page. Material changes will be communicated through the app or on the TrueSignal website.</p>
+
+    <h2>11. Contact</h2>
+    <div class="contact-block">
+      <p><strong>Developer:</strong> TrueSignal</p>
+      <p><strong>Email:</strong> <a href="mailto:dave@developerd.com">dave@developerd.com</a></p>
+      <p><strong>Website:</strong> <a href="https://truesignal.live">truesignal.live</a></p>
     </div>
 
-    <hr class="divider" />
-
-    <!-- THIRD-PARTY TOOLS -->
-    <div class="section">
-      <p class="section-label">External tools (Pro)</p>
-      <h2 class="section-title">Third-party services in External Tools</h2>
-      <p class="section-body">
-        TrueSignal Pro includes an <strong>External Tools</strong> section that provides
-        optional links to third-party services. These tools are entirely opt-in — you must
-        tap a tool and explicitly confirm a disclosure before any data leaves the app.
-        <br><br>
-        TrueSignal does not automatically send data to any of these services. When you
-        choose to use an external tool, you are leaving the TrueSignal app and interacting
-        directly with a third-party service governed by their own privacy policies.
-      </p>
-
-      <div class="warning-box">
-        <p class="warning-box-title">⚠️ Important — external tools share your data</p>
-        <p>
-          Each external tool receives at minimum your public IP address when opened.
-          Some tools collect additional data such as your internet speed, ISP name,
-          and location estimate. TrueSignal has no control over how these services
-          collect, store, or use your data. Always review a third party's privacy
-          policy before using their service.
-        </p>
-      </div>
-
-      <p class="section-body" style="margin-top: 20px;">
-        The following third-party tools are currently available in TrueSignal External Tools:
-      </p>
-
-      <table class="tool-table">
-        <thead>
-          <tr>
-            <th>Tool</th>
-            <th>Provider</th>
-            <th>Data shared</th>
-            <th>Their privacy policy</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Network Health Check</td>
-            <td>Spur Intelligence</td>
-            <td>Your public IP address</td>
-            <td><a href="https://spur.us/privacy" target="_blank">spur.us/privacy</a></td>
-          </tr>
-          <tr>
-            <td>Speed Test</td>
-            <td>Ookla (Speedtest.net)</td>
-            <td>Your public IP address, location estimate, ISP name, upload/download speed results</td>
-            <td><a href="https://www.speedtest.net/about/privacy" target="_blank">speedtest.net/about/privacy</a></td>
-          </tr>
-        </tbody>
-      </table>
-
-      <p class="section-body" style="margin-top:16px;">
-        Additional third-party tools may be added to this section in future updates.
-        This privacy policy will be updated whenever new tools are added, and the
-        in-app disclosure shown before each tool will always reflect the current
-        data sharing details.
-      </p>
-    </div>
-
-    <hr class="divider" />
-
-    <!-- SUBSCRIPTIONS -->
-    <div class="section">
-      <p class="section-label">Purchases</p>
-      <h2 class="section-title">Subscriptions and payments</h2>
-      <p class="section-body">
-        TrueSignal Pro subscriptions are processed through Apple App Store or
-        Google Play. TrueSignal does not handle payment information directly.
-        Subscription management (including cancellation) is handled through your
-        device's platform account settings.
-        <br><br>
-        TrueSignal uses <strong>RevenueCat</strong> to validate subscription entitlements.
-        RevenueCat receives an anonymized subscriber identifier for the purpose of
-        verifying your Pro status. No personal information is shared with RevenueCat beyond
-        what is required for subscription validation. See
-        <a href="https://www.revenuecat.com/privacy" target="_blank">revenuecat.com/privacy</a>
-        for their privacy policy.
-      </p>
-    </div>
-
-    <hr class="divider" />
-
-    <!-- CHILDREN -->
-    <div class="section">
-      <p class="section-label">Age</p>
-      <h2 class="section-title">Children's privacy</h2>
-      <p class="section-body">
-        TrueSignal does not knowingly collect any information from children under the
-        age of 13. The app does not collect personal information from any user,
-        regardless of age.
-      </p>
-    </div>
-
-    <hr class="divider" />
-
-    <!-- CHANGES -->
-    <div class="section">
-      <p class="section-label">Updates</p>
-      <h2 class="section-title">Changes to this policy</h2>
-      <p class="section-body">
-        This privacy policy may be updated when new features are added — particularly
-        when new third-party tools are added to the External Tools section. The
-        "last updated" date at the top of this page reflects the most recent revision.
-        Continued use of the app following any update constitutes acceptance of the
-        revised policy.
-      </p>
-    </div>
-
-    <hr class="divider" />
-
-    <!-- CONTACT -->
-    <div class="section">
-      <p class="section-label">Contact</p>
-      <h2 class="section-title">Questions?</h2>
-      <p class="section-body">
-        If you have any questions about this privacy policy or TrueSignal's data
-        practices, contact us at
-        <a href="mailto:dave@developerd.com">dave@developerd.com</a>.
-      </p>
-    </div>
-
-  </div>
+  </main>
 
   <footer>
-    <div class="footer-logo">
-      <span class="nav-dot"></span>
-      TrueSignal
-    </div>
-    <ul class="footer-links">
-      <li><a href="/">Home</a></li>
-      <li><a href="/how-it-works">How it Works</a></li>
-      <li><a href="/privacy">Privacy Policy</a></li>
-      <li><a href="https://www.apple.com/legal/internet-services/itunes/dev/stla/" target="_blank">Terms of Use</a></li>
-    </ul>
-    <p class="footer-copy">© 2026 TrueSignal. Your bars lie.</p>
+    <p>
+      <a href="/">Home</a>
+      <a href="/#features">Features</a>
+      <a href="/#pricing">Pricing</a>
+      <a href="/privacy/">Privacy</a>
+    </p>
+    <p style="margin-top: 16px;">© 2026 TrueSignal. Your bars lie.</p>
   </footer>
 
 </body>
