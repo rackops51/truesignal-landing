@@ -35,7 +35,7 @@ A lot of apps say "privacy-first" and then quietly ask for your location, your c
 
 - **No GPS.** The app does not request location permissions. Not on iOS, not on Android. Ever.
 - **No account.** There's no signup, no login, no "create your TrueSignal profile." Open the app and it just runs.
-- **You pick the target.** When TrueSignal pings something to measure your connection, you pick what it pings...whether that's a public server, your own home server (highly recommended for the truly paranoid!), or a target your IT team specifies.
+- **You pick the target.** When TrueSignal pings something to measure your connection, you pick what it pings...whether that's a public server, your own home/work server (highly recommended for those who want or need full control), or a target your IT team specifies.
 - **No third-party tracking.** Purchase verification goes through RevenueCat (which is unavoidable for in-app purchases), and that's the only outside service the app talks to (and even they don't get actionable data, save for purchase info).
 
 The result is that TrueSignal doesn't know your name. Doesn't know where you are. Doesn't know which networks you've connected to. It *can't*. That's the design.
