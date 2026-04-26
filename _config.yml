@@ -1,0 +1,42 @@
+# Site
+title: TrueSignal
+description: Real-time connection quality monitoring. Your bars lie. This doesn't.
+url: https://truesignal.live
+author:
+  name: Dave Schwind
+
+# Build
+markdown: kramdown
+highlighter: rouge
+permalink: /blog/:title/
+
+# Plugins (all supported on GitHub Pages)
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# Don't let Jekyll touch the homepage or other static assets.
+# Jekyll only processes files with YAML front matter, so index.html
+# (which has none) will pass through untouched. This is here as a
+# safety net plus to keep the build clean.
+exclude:
+  - README.md
+  - README-blog-setup.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - node_modules
+
+# Feed plugin config — only show blog posts
+feed:
+  path: /blog/feed.xml
+
+# SEO defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      author: "Dave Schwind"

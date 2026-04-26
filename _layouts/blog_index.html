@@ -1,0 +1,31 @@
+---
+layout: default
+---
+
+<section class="blog-hero">
+  <p class="blog-hero-eyebrow">TrueSignal Blog</p>
+  <h1 class="blog-hero-title">{{ page.title | default: "Notes from behind the bars." }}</h1>
+  <p class="blog-hero-desc">{{ page.description | default: "Field notes, design decisions, and the occasional rant about why your phone is lying to you." }}</p>
+</section>
+
+<section class="post-list">
+  {% assign posts = site.posts | where_exp: "post", "post.published != false" %}
+  {% if posts.size == 0 %}
+    <p class="post-list-empty">No posts yet. Check back soon.</p>
+  {% else %}
+    {% for post in posts %}
+      <article class="post-card">
+        <a class="post-card-link" href="{{ post.url | relative_url }}">
+          <div class="post-card-meta">
+            <span class="post-card-date">{{ post.date | date: "%B %-d, %Y" }}</span>
+          </div>
+          <h2 class="post-card-title">{{ post.title }}</h2>
+          {% if post.description %}
+            <p class="post-card-desc">{{ post.description }}</p>
+          {% endif %}
+          <span class="post-card-readmore">Read more →</span>
+        </a>
+      </article>
+    {% endfor %}
+  {% endif %}
+</section>

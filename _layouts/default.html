@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% if page.title %}{{ page.title }} · {{ site.title }}{% else %}{{ site.title }} — Your bars lie. This doesn't.{% endif %}</title>
+  <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}" />
+
+  {% seo title=false %}
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@300;400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="{{ '/assets/css/blog.css' | relative_url }}" />
+
+  {% feed_meta %}
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="{{ '/' | relative_url }}" class="nav-logo">
+      <span class="nav-dot"></span>
+      TrueSignal
+    </a>
+    <ul class="nav-links">
+      <li><a href="{{ '/' | relative_url }}#features">Features</a></li>
+      <li><a href="{{ '/' | relative_url }}#platforms">Platforms</a></li>
+      <li><a href="{{ '/' | relative_url }}#pricing">Pricing</a></li>
+      <li><a href="{{ '/blog/' | relative_url }}">Blog</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE CONTENT -->
+  <main class="site-main">
+    {{ content }}
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">
+      <span class="nav-dot"></span>
+      TrueSignal
+    </div>
+    <ul class="footer-links">
+      <li><a href="{{ '/' | relative_url }}#features">Features</a></li>
+      <li><a href="{{ '/' | relative_url }}#platforms">Platforms</a></li>
+      <li><a href="{{ '/' | relative_url }}#pricing">Pricing</a></li>
+      <li><a href="{{ '/blog/' | relative_url }}">Blog</a></li>
+      <li><a href="{{ '/blog/feed.xml' | relative_url }}">RSS</a></li>
+      <li><a href="https://gist.github.com/rackops51/privacy-policy.md" target="_blank" rel="noopener">Privacy Policy</a></li>
+    </ul>
+    <p class="footer-copy">© 2026 TrueSignal. Your bars lie.</p>
+  </footer>
+
+</body>
+</html>
