@@ -386,6 +386,15 @@ nav {
   margin: 2.5em 0;
 }
 
+/* Images */
+.post-body img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 2em auto;
+  border-radius: 8px;
+}
+
 /* =========================================================================
    POST FOOTER — CTA, navigation, back link
    ========================================================================= */
