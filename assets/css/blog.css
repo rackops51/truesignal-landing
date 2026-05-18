@@ -395,6 +395,21 @@ nav {
   border-radius: 8px;
 }
 
+.post-body figure {
+  margin: 2em 0;
+}
+.post-body figure img {
+  margin: 0 auto;
+}
+.post-body figcaption {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 12px;
+  letter-spacing: 0.02em;
+}
+
 /* =========================================================================
    POST FOOTER — CTA, navigation, back link
    ========================================================================= */
