@@ -15,7 +15,7 @@ Here's the thing though...those pictures never made it onto the App Store. Not b
 
 Capture Sessions is at its best in landscape, full-width, scrolling right to left like a stock ticker. And the App Store wants tidy little portrait thumbnails. So the coolest view in the whole app has basically been hiding.
 
-**TL/DR:** This is a picture post. Capture Sessions records a witnessed timeline of your connection quality and exports it as a defensible PDF, and it looks *way* cooler in landscape than the store screenshots let on. Below are real captures...a couple of them caught my *own* connection doing things my bars swore weren't happening. If you've got Pro, go turn your phone sideways during a recording. If you don't, this is the reason to.
+**TL/DR:** This is a picture-heavy post. Capture Sessions records a witnessed timeline of your connection quality and exports it as a defensible PDF, and it looks *way* cooler in landscape than the store screenshots let on. Below are real captures...a couple of them caught my *own* connection doing things my bars swore weren't happening. If you've got Pro, go turn your phone sideways during a recording. If you don't, this is the reason to.
 
 ---
 
@@ -29,7 +29,7 @@ Green candle, things got better than the last bucket. Red, they got worse. Gray,
 
 There's a real, slightly hypnotic pleasure in watching your own connection draw itself in real time...(I may have lost more evenings to this than I'd like to admit).
 
-## When your bars are lying to your face
+## When your bars are lying
 
 Here's the whole reason this app exists, in one screenshot.
 
@@ -37,7 +37,7 @@ Here's the whole reason this app exists, in one screenshot.
 
 This one is *mine*. Real capture, real 5G, bars sitting up near the top of the phone like everything was fine.
 
-Everything was not fine.
+Everything was not fine (read in your best Morgan Freeman voice!).
 
 That baseline is 33ms. That spike is pushing 2,500ms. That's the difference between a call that's crystal clear and a call where you say "sorry, you cut out, can you repeat that?" for the fourth time. Your bars will never tell you this happened. Capture Sessions did.
 
