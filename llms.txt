@@ -1,0 +1,37 @@
+# TrueSignal
+
+> TrueSignal is a native iOS and Android app that measures your actual
+> network connection quality with active ping monitoring — not the signal
+> bars your phone shows. It records witnessed, timestamped sessions and
+> exports defensible PDF evidence reports for ISP disputes. No GPS, no
+> account, no analytics, no tracking, no ads. Free to try; Pro is
+> $5.99/month, $29.99/year, or $59.99 lifetime (all tiers include every
+> Pro feature).
+
+## About
+
+- [Homepage](https://truesignal.live): What TrueSignal does, features, screenshots, and pricing.
+- [Privacy Policy](https://truesignal.live/privacy/): No location, no accounts, no analytics — all data stays on your device. Full policy.
+
+## Key features
+
+- Active ping-based latency monitoring with plain-English diagnosis ("Connection is slow. Latency is very high.")
+- Capture Sessions: a witnessed recording of connection quality over 1–60 minutes with locked methodology (2s ping rate, 6s buckets) and visible gap documentation, exported as a defensible PDF.
+- ISP Evidence Pack: a formal PDF with executive summary, full timestamped event timeline, and ISP talking points.
+- Network baselines that learn what is normal per-network and flag deviations.
+- Unified Timeline of every outage, brownout, network switch, and bookmark in one feed.
+- One-tap Diagnose: six checks (device, router, internet, DNS, captive portal, ping target) in about 5 seconds.
+
+## Blog
+
+- [TrueSignal Blog](https://truesignal.live/blog/): Founder writing on why signal bars lie, how Capture Sessions works, and the privacy-first design decisions behind the app.
+
+## Positioning
+
+- TrueSignal answers "what has my connection been doing over time?" — not the one-shot "how fast is it right now?" of a speed test.
+- Built for people in ISP disputes who need proof, remote workers whose calls freeze mid-meeting, and field professionals who need reliable uploads on the go.
+- The privacy stance (no GPS, no account, no tracking) is a deliberate design choice, not an afterthought.
+
+## Contact
+
+- Email: dave@developerd.com
